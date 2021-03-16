@@ -13,20 +13,9 @@ app.get("/", (req, res) => {
   res.status(200).json("Hello World!");
 });
 
-let server;
-
-if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
-  server = https
-    .createServer(
-      {
-        key: fs.readFileSync(__dirname + `/` + "key.pem", "utf-8"),
-        cert: fs.readFileSync(__dirname + `/` + "cert.pem", "utf-8"),
-      },
-      app
-    )
-    .listen(port);
-} else {
-  server = app.listen(port);
-}
+const server = https.createServer({
+  key: fs.readFileSync(`/etc/letsencrypt/live/exitgift.shop/privkey.pem`, 'utf-8'),
+  cert: fs.readFileSync(`/etc/letsencrypt/live/exitgift.shop/cert.pem`, 'utf-8'),
+}, app).listen(port);
 
 module.exports = server;
