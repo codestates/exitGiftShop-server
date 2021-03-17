@@ -22,9 +22,12 @@ const server = https
     {
       key: fs.readFileSync("/" + process.env.KEY_PATH, "utf-8"),
       cert: fs.readFileSync("/" + process.env.CERT_PATH, "utf-8"),
+      // key: fs.readFileSync(__dirname + "/key.pem", "utf-8"),
+      // cert: fs.readFileSync(__dirname + "/cert.pem", "utf-8"),
     },
     app
   )
-  .listen(port, () => console.log("https://back.exitgift.shop:4000"));
+  .listen(port, () => console.log("https://back.exitgift.shop:4000/docs"));
+// .listen(port, () => console.log("https://localhost:4000/docs"));
 
 module.exports = server;
