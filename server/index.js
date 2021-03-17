@@ -14,27 +14,27 @@ app.get("/", (req, res) => {
   res.status(200).json("Hello World!");
 });
 
-// const server = https
-//   .createServer(
-//     {
-//       key: fs.readFileSync("/" + process.env.KEY_PATH, "utf-8"),
-//       cert: fs.readFileSync("/" + process.env.CERT_PATH, "utf-8"),
-//     },
-//     app
-//   )
-//   .listen(port);
+const server = https
+  .createServer(
+    {
+      key: fs.readFileSync("/" + process.env.KEY_PATH, "utf-8"),
+      cert: fs.readFileSync("/" + process.env.CERT_PATH, "utf-8"),
+    },
+    app
+  )
+  .listen(port);
 
-// module.exports = server;
+module.exports = server;
 
 // local test
 
-app.get("/adder", (req, res) => {
-  let one = req.query.one;
-  let two = req.query.two;
-  let result = Number(one) + Number(two);
-  res.send(String(result));
-});
+// app.get("/adder", (req, res) => {
+//   let one = req.query.one;
+//   let two = req.query.two;
+//   let result = Number(one) + Number(two);
+//   res.send(String(result));
+// });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Example app listening at http://localhost:${port}`);
+// });
