@@ -16,12 +16,6 @@ app.get("/", (req, res) => {
   res.status(200).json("Hello World!");
 });
 
-<<<<<<< HEAD
-const server = https.createServer({
-  key: fs.readFileSync(KEY_PATH, 'utf-8'),
-  cert: fs.readFileSync(CERT_PATH, 'utf-8'),
-}, app).listen(port);
-=======
 // https
 const server = https
   .createServer(
@@ -35,6 +29,5 @@ const server = https
   )
   .listen(port, () => console.log("https://back.exitgift.shop:4000/docs"));
 // .listen(port, () => console.log("https://localhost:4000/docs"));
->>>>>>> 1c400d7e2a98cf141bc25ad2b2c9f049eeb7e0cd
 
 module.exports = server;
