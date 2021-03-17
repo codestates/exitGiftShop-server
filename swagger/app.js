@@ -1,12 +1,15 @@
 "use strict";
+const SwaggerExpress = require("swagger-express-mw");
+const SwaggerUi = require("swagger-tools/middleware/swagger-ui");
+const cors = require("cors");
+const fs = require("fs");
+const https = require("https");
+const port = process.env.PORT || 9000;
+const app = require("express")();
+require("dotenv").config;
 
-var SwaggerExpress = require("swagger-express-mw");
-var SwaggerUi = require("swagger-tools/middleware/swagger-ui");
 
-var app = require("express")();
-module.exports = app; // for testing
-
-var config = {
+const config = {
   appRoot: __dirname, // required config
   swaggerSecurityHandlers: {
     api_key: function (req, authOrSecDef, scopesOrApiKey, cb) {
@@ -20,20 +23,31 @@ var config = {
   },
 };
 
+
+
 SwaggerExpress.create(config, function (err, swaggerExpress) {
   if (err) {
     throw err;
   }
 
-  // install middleware
   swaggerExpress.register(app);
   swaggerExpress.runner.swagger.host = "dosc.exitgift.shop/docs:9000";
   app.use(SwaggerUi(swaggerExpress.runner.swagger));
-
-  var port = process.env.PORT || 9000;
-  app.listen(port, () =>
-    console.log("server https://dosc.exitgift.shop/docs:9000")
+  app.use(express.json());
+  const server = https
+  .createServer(
+    {
+      key: fs.readFileSync("/" + process.env.KEY_PATH, "utf-8"),
+      cert: fs.readFileSync("/" + process.env.CERT_PATH, "utf-8"),
+    },
+    app
   );
+
+  server.listen(port, () =>
+  console.log("server https://dosc.exitgift.shop/docs:9000")
+  );
+  
+  module.exports = server; // for testing
 });
 
 // 9000번 or 10000번
