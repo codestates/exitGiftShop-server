@@ -15,11 +15,18 @@
 
 ### [📖 Wiki](https://github.com/codestates/exitGiftShop-client/wiki)
 
+### [:mag: Wire Frame](https://github.com/codestates/exitGiftShop-client/wiki/Wire-Frame)
 
 ### [🌈  Feature Work Flow](https://github.com/codestates/exitGiftShop-client/wiki/Work-Flow)
 
+### [:package: Feature List](https://github.com/codestates/exitGiftShop-client/wiki/Feature-List)
 
 ### [:hammer_and_wrench: System Architecture](https://github.com/codestates/exitGiftShop-client/wiki/System-Architecture)
+
+### [🗄 Database Scheme](https://github.com/codestates/exitGiftShop-client/wiki/Database-Scheme)
+
+### [📘 Api Docs](https://back.exitgift.shop:4000/docs/)
+
 ## 프로젝트 소개
 
 ### 주제 선정 이유
@@ -31,9 +38,10 @@
 
 ### 기술 스택
 
-| Front-End        | Back-End  | Deploy       | Docs & Teample  | Etc      |
-| ---------------- | --------- | ------------ | --------------- | -------- |
-| `React`          | `Express` | `S3`         | `GitHub_Project`| `Gabia`  |
-| `Sequlize`       | `mariaDB` | `EC2`        | `GitHub_Wiki`   | `OAuth`  |
-|                  | `Dbeaver` | `RDS`        | `Swagger`       |          |
-|                  | `Dbeaver` | `Route53`    | `Slack`         |          |
+| Front-End        | Back-End    | Deploy       | Docs & Teample  | Etc            |
+| ---------------- | ----------- | ------------ | --------------- | -------------- |
+| `React`          | `Express`   | `S3`         | `GitHub_Project`| `Gabia`        |
+| `React-Hooks`    | `mariaDB`   | `EC2`        | `GitHub_Wiki`   | `OAuth`        |
+|                  | `Dbeaver`   | `RDS`        | `Slack`         | `Lets Encrypt` |
+|                  | `Sequelize` | `Route53`    |                 |                |
+|                  | `Swagger`   | `ACM`        |                 |                |
