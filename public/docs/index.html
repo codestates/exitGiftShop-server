@@ -39,7 +39,8 @@
     window.onload = function() {
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
-        url: "https://back.exitgift.shop:4000/docs",
+        url: "https://back.exitgift.shop:4000/swagger.yaml",
+        // url: "https://localhost:4000/swagger.yaml",
         dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [
