@@ -11,7 +11,7 @@
 
 > ✏ 아트경매의 FOMO열기를 온라인으로 옮기다.
 
-### [🏠 Homepage](https://github.com/codestates/exitGiftShop-client)
+### [🏠 Homepage](https://www.exitgift.shop)
 
 ### [📖 Wiki](https://github.com/codestates/exitGiftShop-client/wiki)
 
@@ -22,6 +22,10 @@
 ### [:package: Feature List](https://github.com/codestates/exitGiftShop-client/wiki/Feature-List)
 
 ### [:hammer_and_wrench: System Architecture](https://github.com/codestates/exitGiftShop-client/wiki/System-Architecture)
+
+### [🗄 Database Scheme](https://github.com/codestates/exitGiftShop-client/wiki/Database-Scheme)
+
+### [📘 Api Docs](https://back.exitgift.shop:4000/docs/)
 
 ## 프로젝트 소개
 
@@ -34,9 +38,10 @@
 
 ### 기술 스택
 
-| Front-End        | Back-End  | Deploy       | Docs & Teample  | Etc      |
-| ---------------- | --------- | ------------ | --------------- | -------- |
-| `React`          | `Express` | `S3`         | `GitHub_Project`| `Gabia`  |
-| `Sequlize`       | `mariaDB` | `EC2`        | `GitHub_Wiki`   | `OAuth`  |
-|                  | `Dbeaver` | `RDS`        | `Swagger`       |          |
-|                  | `Dbeaver` | `Route53`    | `Slack`         |          |
+| Front-End        | Back-End    | Deploy       | Docs & Teample  | Etc            |
+| ---------------- | ----------- | ------------ | --------------- | -------------- |
+| `React`          | `Express`   | `S3`         | `GitHub_Project`| `Gabia`        |
+| `React-Hooks`    | `mariaDB`   | `EC2`        | `GitHub_Wiki`   | `OAuth`        |
+|                  | `Dbeaver`   | `RDS`        | `Slack`         | `Lets Encrypt` |
+|                  | `Sequelize` | `Route53`    |                 |                |
+|                  | `Swagger`   | `ACM`        |                 |                |
