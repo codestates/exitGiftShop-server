@@ -1,1 +1,24 @@
-GET https://localhost:4000/user/signin
+POST https://localhost:4000/user/signup
+content-type: application/json
+
+{
+  "user_password": "1234",
+  "user_email": "111@naver.com",
+  "user_nick": "dobi"
+}
+
+###
+
+POST https://localhost:4000/user/signin
+content-type: application/json
+
+{
+  "user_email": "111@naver.com",
+  "user_password": "1234"
+}
+
+###
+
+GET https://localhost:4000/user/refreshtokenrequest
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXVpZCI6Ijc3ZTdiNjM5LTQ0MGYtNGQzMi04NmU2LTE2NTYzNDA3MDY0NSIsInVzZXJfdXNlX2N1cnJlbmN5IjoiJCIsInVzZXJfdXNlX2xhbmd1YWdlIjoia29yIiwidXNlcl90eXBlIjoidXNlciIsInVzZXJfZW1haWwiOiIxMTFAbmF2ZXIuY29tIiwidXNlcl9uaWNrIjoiZG9iaSIsIndhbGxldF9ub3dfZGVwb3NpdCI6MCwid2FsbGV0X25vd19jb2luIjowLCJjcmVhdGVkQXQiOiIyMDIxLTAzLTE4VDA5OjE2OjI5LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTAzLTE4VDA5OjE2OjI5LjAwMFoiLCJpYXQiOjE2MTYwNjcyMjcsImV4cCI6MTYxODY1OTIyN30.5wnYo3RxcNLD6AE0BOFJTw18PqZ9YUd-hCWaLeGOXB0
+
