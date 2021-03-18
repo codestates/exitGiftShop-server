@@ -1,15 +1,18 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const fs = require("fs");
 const https = require("https");
 const cookieParser = require("cookie-parser");
-require("dotenv").config();
+const fileUpload = require('express-fileupload');
 const port = 4000;
 
 // router
 const indexRouter = require("./routes/index");
 const userRouter = require("./routes/user");
+const auctionRouter = require("./routes/auction");
+const fileRouter = require("./routes/file");
 
 // use
 app.use(express.static("public"));
@@ -23,8 +26,18 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   })
 );
+
+const MEGABYTE = 1024 * 1024;
+app.use(fileUpload({
+  limits: { fileSize: 50 * MEGABYTE }, 
+}));
+
+
+// router
 app.use("/", indexRouter);
-app.user("/user", userRouter);
+app.use("/user", userRouter);
+app.use("/auction", auctionRouter);
+app.use("/file", fileRouter);
 
 // https
 const server = https
@@ -37,7 +50,7 @@ const server = https
     },
     app
   )
-  .listen(port, () => console.log("https://back.exitgift.shop:4000/docs"));
-// .listen(port, () => console.log("https://localhost:4000/docs"));
+  .listen(port, () => console.log("https://back.exitgift.shop:4000"));
+// .listen(port, () => console.log("https://localhost:4000"));
 
 module.exports = server;
