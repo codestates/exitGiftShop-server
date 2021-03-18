@@ -6,6 +6,7 @@ const https = require("https");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const port = 4000;
+
 // router
 const indexRouter = require("./routes/index");
 const userRouter = require("./routes/user");
@@ -17,9 +18,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["https://localhost:4000"], //["https://back.exitgift.shop:4000"]
+    origin: "*",
     credentials: true,
-    methods: ["GET", "POST", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   })
 );
 app.use("/", indexRouter);
