@@ -12,7 +12,8 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.CHAR(36),
       allowNull: false,
       comment: "uuid",
-      unique: "UC_uuid"
+      unique: "UC_uuid",
+      defaultValue: DataTypes.UUIDV4
     },
     user_use_currency: {
       type: DataTypes.STRING(255),
