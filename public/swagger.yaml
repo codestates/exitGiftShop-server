@@ -10,11 +10,11 @@ tags:
   - name: User
   - name: Puzzle
   - name: Paddle
-  - name: Like
+  - name: Likes
   - name: Bid
   - name: File
   - name: Art
-  - name: Action
+  - name: Auction
 paths:
   /signup:
     post:
@@ -64,19 +64,19 @@ paths:
     delete:
       tags:
         - Paddle
-  /like:
+  /likes:
     get:
       tags:
-        - Like
+        - Likes
     post:
       tags:
-        - Like
+        - Likes
     put:
       tags:
-        - Like
+        - Likes
     delete:
       tags:
-        - Like
+        - Likes
   /bid:
     get:
       tags:
@@ -116,16 +116,16 @@ paths:
     delete:
       tags:
         - Art
-  /action:
+  /auction:
     get:
       tags:
-        - Action
+        - Auction
     post:
       tags:
-        - Action
+        - Auction
     put:
       tags:
-        - Action
+        - Auction
     delete:
       tags:
-        - Action
+        - Auction
