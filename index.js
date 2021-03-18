@@ -36,8 +36,6 @@ app.use(fileUpload({
 // router
 app.use("/", indexRouter);
 app.use("/user", userRouter);
-app.use("/auction", auctionRouter);
-app.use("/file", fileRouter);
 
 // https
 const server = https
