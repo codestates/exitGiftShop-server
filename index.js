@@ -48,7 +48,7 @@ const server = https
     },
     app
   )
-  .listen(port, () => console.log("https://back.exitgift.shop:4000"));
-// .listen(port, () => console.log("https://localhost:4000"));
+  // .listen(port, () => console.log("https://back.exitgift.shop:4000"));
+.listen(port, () => console.log("https://localhost:4000"));
 
 module.exports = server;

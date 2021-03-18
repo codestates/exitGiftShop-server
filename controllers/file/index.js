@@ -28,18 +28,22 @@ module.exports = {
     
   },
   preview: async (req, res) => {
-    const { id } = req.params;
+    console.log(req);
+    const id = (+req.params.id);
+    if (!id) {
+      res.status(400).json({
+        msg : `id is required`
+      })
+      return;
+    }
     const file = await fileModel.findOne({ where: { id } });
-    if (file === null) {
+    if (!file) {
       res.status(404).json({
         msg : `file not found`
       })
       return;
     } else {
-      console.log(file);
-      res.json({ 
-        msg : `find ${file}`
-      })
+      res.send(file);
       return;
     }
   }
