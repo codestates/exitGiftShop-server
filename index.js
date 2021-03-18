@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const port = 4000;
 const fs = require("fs");
 const https = require("https");
 require("dotenv").config();
+const port = 4000;
 
 // use
 app.use(express.static("public"));
@@ -31,3 +31,5 @@ const server = https
 // .listen(port, () => console.log("https://localhost:4000/docs"));
 
 module.exports = server;
+
+// npx sequelize-cli model:generate --name user --attributes uuid:UUID,
