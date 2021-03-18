@@ -4,3 +4,11 @@
 // 3.
 
 // etc...
+
+
+// sequelize db모듈 못찾을 경우
+// npm install --save mariadb
+
+// res.status(400).json({
+//   msg : `something wrong`
+// });
