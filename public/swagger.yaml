@@ -1,0 +1,131 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 'exitgift.shop API'
+  description: ''
+servers:
+  - description: 'exitgift.shop API'
+    url: https://back.exitgift.shop:4000/docs
+tags:
+  - name: User
+  - name: Puzzle
+  - name: Paddle
+  - name: Likes
+  - name: Bid
+  - name: File
+  - name: Art
+  - name: Auction
+paths:
+  /signup:
+    post:
+      tags:
+        - User
+  /signin:
+    post:
+      tags:
+        - User
+  /signout:
+    post:
+      tags:
+        - User
+      parameters:
+        - name: body
+          description: json
+  /account/{uuid}:
+    get:
+      tags:
+        - User
+      parameters:
+        - name: uuid
+          description: uuid
+  /puzzle:
+    get:
+      tags:
+        - Puzzle
+    post:
+      tags:
+        - Puzzle
+    put:
+      tags:
+        - Puzzle
+    delete:
+      tags:
+        - Puzzle
+  /paddle:
+    get:
+      tags:
+        - Paddle
+    post:
+      tags:
+        - Paddle
+    put:
+      tags:
+        - Paddle
+    delete:
+      tags:
+        - Paddle
+  /likes:
+    get:
+      tags:
+        - Likes
+    post:
+      tags:
+        - Likes
+    put:
+      tags:
+        - Likes
+    delete:
+      tags:
+        - Likes
+  /bid:
+    get:
+      tags:
+        - Bid
+    post:
+      tags:
+        - Bid
+    put:
+      tags:
+        - Bid
+    delete:
+      tags:
+        - Bid
+  /file:
+    get:
+      tags:
+        - File
+    post:
+      tags:
+        - File
+    put:
+      tags:
+        - File
+    delete:
+      tags:
+        - File
+  /art:
+    get:
+      tags:
+        - Art
+    post:
+      tags:
+        - Art
+    put:
+      tags:
+        - Art
+    delete:
+      tags:
+        - Art
+  /auction:
+    get:
+      tags:
+        - Auction
+    post:
+      tags:
+        - Auction
+    put:
+      tags:
+        - Auction
+    delete:
+      tags:
+        - Auction
