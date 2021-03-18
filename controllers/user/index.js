@@ -1,6 +1,5 @@
 // 모델 불러오기
 const userModel = require("../../models").user;
-const jwt = require("jsonwebtoken");
 const {
   isAuthorized,
   generateAccessToken,
@@ -104,5 +103,12 @@ module.exports = {
   },
 
   // 로그아웃
-  signout: async (req, res) => {},
+  signout: (req, res) => {
+    res.clearCookie("refreshToken", { maxAge: 0 });
+    res.json({ msg: "ok" });
+  },
+
+  //oauth 로그인
+
+  //oauth 로그아웃
 };
