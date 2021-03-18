@@ -24,16 +24,16 @@ app.use(
   })
 );
 app.use("/", indexRouter);
-app.user("/user", userRouter);
+app.use("/user", userRouter);
 
 // https
 const server = https
   .createServer(
     {
-      key: fs.readFileSync("/" + process.env.KEY_PATH, "utf-8"),
-      cert: fs.readFileSync("/" + process.env.CERT_PATH, "utf-8"),
-      // key: fs.readFileSync(__dirname + "/key.pem", "utf-8"),
-      // cert: fs.readFileSync(__dirname + "/cert.pem", "utf-8"),
+      // key: fs.readFileSync("/" + process.env.KEY_PATH, "utf-8"),
+      // cert: fs.readFileSync("/" + process.env.CERT_PATH, "utf-8"),
+      key: fs.readFileSync(__dirname + "/key.pem", "utf-8"),
+      cert: fs.readFileSync(__dirname + "/cert.pem", "utf-8"),
     },
     app
   )
