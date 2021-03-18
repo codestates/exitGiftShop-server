@@ -3,18 +3,28 @@ const app = express();
 const cors = require("cors");
 const fs = require("fs");
 const https = require("https");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const port = 4000;
+
+// router
+const indexRouter = require("./routes/index");
+const userRouter = require("./routes/user");
 
 // use
 app.use(express.static("public"));
 app.use(express.json());
-app.use(cors());
-
-// get
-app.get("/", (req, res) => {
-  res.status(200).json("Hello World!");
-});
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  })
+);
+app.use("/", indexRouter);
+app.user("/user", userRouter);
 
 // https
 const server = https
@@ -31,5 +41,3 @@ const server = https
 // .listen(port, () => console.log("https://localhost:4000/docs"));
 
 module.exports = server;
-
-// npx sequelize-cli model:generate --name user --attributes uuid:UUID,
