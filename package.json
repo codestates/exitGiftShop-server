@@ -6,16 +6,9 @@
   "scripts": {
     "start": "nodemon index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rollo231/exitGiftShop-server.git"
-  },
+  
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rollo231/exitGiftShop-server/issues"
-  },
-  "homepage": "https://github.com/rollo231/exitGiftShop-server#readme",
   "dependencies": {
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
