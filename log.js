@@ -9,10 +9,7 @@
 // res.status(400).json({
 //   msg : ‘something wrong’
 // });
-// etc...
-
-// res.status(400).json({
-//   msg : `something wrong`
-// });
 
 // express index.js 가 서버버전으로 세팅되어있으면 브런치를 나눠야 한다는 의미로 해석합니다.
+
+// *********************deploy 전에 port 확인*****************************************
