@@ -7,12 +7,16 @@ const https = require("https");
 const cookieParser = require("cookie-parser");
 const port = 4000;
 
+// views
+app.set("view engine", "ejs");
+
 // router
 const indexRouter = require("./routes/index");
 const userRouter = require("./routes/user");
 const auctionRouter = require("./routes/auction");
 const fileRouter = require("./routes/file");
 const artRouter = require("./routes/art");
+const puzzleRouter = require("./routes/puzzle");
 
 // use
 app.use(express.static("public"));
@@ -27,14 +31,13 @@ app.use(
   })
 );
 
-
-
 // router
 app.use("/", indexRouter);
 app.use("/user", userRouter);
 app.use("/file", fileRouter);
 app.use("/auction", auctionRouter);
 app.use("/art", artRouter);
+app.use("/puzzle", puzzleRouter);
 
 // https
 const server = https
