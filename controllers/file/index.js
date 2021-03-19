@@ -3,6 +3,7 @@ const fileModel = require("../../models").file;
 module.exports = {
   list: async (req, res) => {
     const list = await fileModel.findAll({
+      include: [ `arts`],
       attributes: { exclude: ['file_data'] }
     });
     if (!list) {
@@ -22,7 +23,10 @@ module.exports = {
       })
       return;
     }
-    const file = await fileModel.findOne({ where: { id } });
+    const file = await fileModel.findOne({ 
+      include: [ `arts`],
+      where: { id } 
+    });
     if (!file) {
       res.status(404).json({
         msg : `file not found`

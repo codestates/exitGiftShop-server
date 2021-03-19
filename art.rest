@@ -1,0 +1,45 @@
+
+
+
+GET https://localhost:4000/art
+
+###
+
+GET https://localhost:4000/art/e44f21af-a7c3-4c64-bf26-6c10edd4d0c3
+
+
+###
+
+GET https://localhost:4000/art/user/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+
+
+POST https://localhost:4000/art
+content-type: application/json
+
+{
+  "file_id": "1",
+  "artist_uuid": "82865d2f-26b8-4611-85f1-933643995e79",
+  "title":"testTitle99",
+  "desc":"testDesc2",
+  "twitter":"testDesc3"
+}
+
+###
+
+PUT https://localhost:4000/art/5359fc48-d8be-4f80-a3d9-9759c541e772
+content-type: application/json
+
+  # "file_id": "2",
+  # "artist_uuid": "82865d2f-26b8-4611-85f1-933643995e79",
+  # "title":"testTitleaaaaaaa",
+  # "desc":"testDescaaaaa",
+{
+  "twitter":"twittertestestestestt"
+}
+
+###
+
+DELETE https://localhost:4000/art/c1ef5574-4a17-4591-ae8e-9c98dc61d7f2
+

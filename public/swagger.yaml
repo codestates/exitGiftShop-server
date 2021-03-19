@@ -10,11 +10,11 @@ tags:
   - name: User
   - name: File
   - name: Art
+  - name: Auction
   - name: Puzzle
   - name: Paddle
   - name: Likes
   - name: Bid
-  - name: Auction
 paths:
   /signup:
     post:
@@ -151,7 +151,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/art-list'
         404 :
-          description: file not found    
+          description: file not found
     post:
       tags:
         - Art
@@ -166,38 +166,6 @@ paths:
       responses:
         200:
           description: uploaded json
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/art-post-json'
-        400:
-          description: request err
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/client-err-json'
-        500:
-          description: server err
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/server-err-json'
-
-  /art/user/{uuid}:
-    get:
-      tags:
-        - Art
-      summary: Find art by User uuid
-      description: Returns a single Art
-      parameters:
-        - name: uuid
-          in: path
-          description: User uuid
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
           content:
             application/json:
               schema:
@@ -270,7 +238,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/art-put-json'
+                $ref: '#/components/schemas/art-list'
         400:
           description: request err
           content:
@@ -314,23 +282,233 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server-err-json'
-                
+  /art/user/{uuid}:
+    get:
+      tags:
+        - Art
+      summary: Find art by User uuid
+      description: Returns a single Art
+      parameters:
+        - name: uuid
+          in: path
+          description: User uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                $ref: '#/components/schemas/art-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'      
   /auction:
     get:
       tags:
         - Auction
+      summary: Auctions List
+      description: Returns a Auctions List
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/auction-list'
+        404 :
+          description: file not found
     post:
       tags:
         - Auction
-    put:
-      tags:
-        - Auction
+      summary: Add Auction
+      description: Returns a Uploaded Auction
+      requestBody:
+        description: Auction to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/auction-post-json'
+      responses:
+        200:
+          description: uploaded json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/auction-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
     delete:
       tags:
         - Auction
+      summary: Delete Auction
+      description: Returns a Deleted Auction Property
+      parameters:
+        - name: uuid
+          in: path
+          description: Auction uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: deleted json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/auction-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
 
+  /auction/{uuid}:
+    get:
+      tags:
+        - Auction
+      summary: Find Auction by uuid
+      description: Returns a single Auction
+      parameters:
+        - name: uuid
+          in: path
+          description: Auction uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/art-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+    put:
+      tags:
+        - Auction
+      summary: Update Auction
+      description: Returns a Updated Auction Property
+      parameters:
+        - name: uuid
+          in: path
+          description: Auction uuid
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Auction to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/auction-put-json'
+      responses:
+        200:
+          description: uploaded json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/auction-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+  /auction/art/{uuid}:
+    get:
+      tags:
+        - Auction
+      summary: Find auction by Art uuid
+      description: Returns a single Auction
+      parameters:
+        - name: uuid
+          in: path
+          description: Art uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                $ref: '#/components/schemas/auction-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'                
 components:
   schemas:
+    client-err-json:
+      type: object
+      properties:
+        msg:
+          type: string
+          example: uuid is required
+    server-err-json:
+      type: object
+      properties:
+        msg:
+          type: string
+          example: title already exist
+
     file:
       type: object
       properties:
@@ -341,7 +519,6 @@ components:
         file_name:
           type: string
           example: picture.png
-
 
     art-list:
       type: object
@@ -371,6 +548,7 @@ components:
         updatedAt:
           type: string
           example: "2021-03-19T04:54:36.000Z"
+
     art-post-json:
       type: object
       properties:
@@ -390,6 +568,7 @@ components:
         twitter:
           type: string
           example: testDesc
+
     art-put-json:
       type: object
       properties:
@@ -399,15 +578,66 @@ components:
         twitter:
           type: string
           example: testDesc
-    client-err-json:
+
+
+    auction-list:
       type: object
       properties:
-        msg:
+        art_uuid:
           type: string
-          example: uuid is required
-    server-err-json:
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        uuid:
+          type: string
+          example: e44f21af-a7c3-4c64-bf26-6c10edd4d0c3
+        auction_end_time:
+          type: string
+          example: "2021-03-19T04:54:36.000Z"
+        auction_hammer_price:
+          type: integer
+          example: 10000
+        auction_now_price:
+          type: integer
+          example: 1000
+        auction_link:
+          type: string
+          example: "https://exitgift.shop/ongoing"
+        auction_start_time:
+          type: string
+          example: "2021-03-19T04:54:36.000Z"
+        createdAt:
+          type: string
+          example: "2021-03-19T04:54:36.000Z"
+        updatedAt:
+          type: string
+          example: "2021-03-19T04:54:36.000Z"
+
+    auction-post-json:
       type: object
       properties:
-        msg:
+        art_uuid:
           type: string
-          example: title already exist
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        start_time:
+          type: string
+          example: "2021-03-19T04:54:36.000Z"
+        end_time:
+          type: string
+          example: "2021-03-19T04:54:36.000Z"
+        hammer_price:
+          type: integer
+          example: 10000
+        now_price:
+          type: integer
+          example: 1000
+        link:
+          type: string
+          example: "https://exitgift.shop/ongoing"
+    auction-put-json:
+      type: object
+      properties:
+        hammer_price:
+          type: integer
+          example: 200000
+        now_price:
+          type: integer
+          example: 1000
