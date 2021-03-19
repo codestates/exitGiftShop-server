@@ -7,6 +7,9 @@ const https = require("https");
 const cookieParser = require("cookie-parser");
 const port = 4000;
 
+// views
+app.set("view engine", "ejs");
+
 // router
 const indexRouter = require("./routes/index");
 const userRouter = require("./routes/user");
@@ -27,8 +30,6 @@ app.use(
   })
 );
 
-
-
 // router
 app.use("/", indexRouter);
 app.use("/user", userRouter);
@@ -48,6 +49,6 @@ const server = https
     app
   )
   // .listen(port, () => console.log("https://back.exitgift.shop:4000"));
-.listen(port, () => console.log("https://localhost:4000"));
+  .listen(port, () => console.log("https://localhost:4000"));
 
 module.exports = server;
