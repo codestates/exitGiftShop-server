@@ -1,6 +1,11 @@
 const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('art', {
+module.exports = (sequelize, DataTypes) => {
+  return art.init(sequelize, DataTypes);
+}
+
+class art extends Sequelize.Model {
+  static init(sequelize, DataTypes) {
+  super.init({
     art_file_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -85,4 +90,6 @@ module.exports = function(sequelize, DataTypes) {
       },
     ]
   });
-};
+  return art;
+  }
+}

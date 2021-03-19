@@ -20,28 +20,28 @@ function initModels(sequelize) {
   var puzzle = _puzzle(sequelize, DataTypes);
   var user = _user(sequelize, DataTypes);
 
-  auction.belongsTo(art, { as: "art_uu", foreignKey: "art_uuid"});
-  art.hasMany(auction, { as: "auctions", foreignKey: "art_uuid"});
-  paddle.belongsTo(art, { as: "paddle_art_uu", foreignKey: "paddle_art_uuid"});
-  art.hasMany(paddle, { as: "paddles", foreignKey: "paddle_art_uuid"});
-  puzzle.belongsTo(art, { as: "puzzle_art_uu", foreignKey: "puzzle_art_uuid"});
-  art.hasMany(puzzle, { as: "puzzles", foreignKey: "puzzle_art_uuid"});
-  bid.belongsTo(auction, { as: "auction_uu", foreignKey: "auction_uuid"});
-  auction.hasMany(bid, { as: "bids", foreignKey: "auction_uuid"});
-  likes.belongsTo(auction, { as: "auction_uu", foreignKey: "auction_uuid"});
-  auction.hasMany(likes, { as: "likes", foreignKey: "auction_uuid"});
+  auction.belongsTo(art, { as: "art_uu", foreignKey: "art_uuid", targetKey: "uuid"});
+  art.hasMany(auction, { as: "auctions", foreignKey: "art_uuid", sourceKey: "uuid"});
+  paddle.belongsTo(art, { as: "paddle_art_uu", foreignKey: "paddle_art_uuid", targetKey: "uuid"});
+  art.hasMany(paddle, { as: "paddles", foreignKey: "paddle_art_uuid", sourceKey: "uuid"});
+  puzzle.belongsTo(art, { as: "puzzle_art_uu", foreignKey: "puzzle_art_uuid", targetKey: "uuid"});
+  art.hasMany(puzzle, { as: "puzzles", foreignKey: "puzzle_art_uuid", sourceKey: "uuid"});
+  bid.belongsTo(auction, { as: "auction_uu", foreignKey: "auction_uuid", targetKey: "uuid"});
+  auction.hasMany(bid, { as: "bids", foreignKey: "auction_uuid", sourceKey: "uuid"});
+  likes.belongsTo(auction, { as: "auction_uu", foreignKey: "auction_uuid", targetKey: "uuid"});
+  auction.hasMany(likes, { as: "likes", foreignKey: "auction_uuid", sourceKey: "uuid"});
   art.belongsTo(file, { as: "art_file", foreignKey: "art_file_id"});
   file.hasMany(art, { as: "arts", foreignKey: "art_file_id"});
-  art.belongsTo(user, { as: "art_artist_uu", foreignKey: "art_artist_uuid"});
-  user.hasMany(art, { as: "arts", foreignKey: "art_artist_uuid"});
-  bid.belongsTo(user, { as: "user_uu", foreignKey: "user_uuid"});
-  user.hasMany(bid, { as: "bids", foreignKey: "user_uuid"});
-  likes.belongsTo(user, { as: "user_uu", foreignKey: "user_uuid"});
-  user.hasMany(likes, { as: "likes", foreignKey: "user_uuid"});
-  paddle.belongsTo(user, { as: "paddle_user_uu", foreignKey: "paddle_user_uuid"});
-  user.hasMany(paddle, { as: "paddles", foreignKey: "paddle_user_uuid"});
-  puzzle.belongsTo(user, { as: "puzzle_user_uu", foreignKey: "puzzle_user_uuid"});
-  user.hasMany(puzzle, { as: "puzzles", foreignKey: "puzzle_user_uuid"});
+  art.belongsTo(user, { as: "art_artist_uu", foreignKey: "art_artist_uuid", targetKey: "uuid"});
+  user.hasMany(art, { as: "arts", foreignKey: "art_artist_uuid", sourceKey: "uuid"});
+  bid.belongsTo(user, { as: "user_uu", foreignKey: "user_uuid", targetKey: "uuid"});
+  user.hasMany(bid, { as: "bids", foreignKey: "user_uuid", sourceKey: "uuid"});
+  likes.belongsTo(user, { as: "user_uu", foreignKey: "user_uuid", targetKey: "uuid"});
+  user.hasMany(likes, { as: "likes", foreignKey: "user_uuid", sourceKey: "uuid"});
+  paddle.belongsTo(user, { as: "paddle_user_uu", foreignKey: "paddle_user_uuid", targetKey: "uuid"});
+  user.hasMany(paddle, { as: "paddles", foreignKey: "paddle_user_uuid", sourceKey: "uuid"});
+  puzzle.belongsTo(user, { as: "puzzle_user_uu", foreignKey: "puzzle_user_uuid", targetKey: "uuid"});
+  user.hasMany(puzzle, { as: "puzzles", foreignKey: "puzzle_user_uuid", sourceKey: "uuid"});
 
   return {
     art,

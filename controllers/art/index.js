@@ -6,11 +6,19 @@ const fileModel = require("../../models").file;
 module.exports = {
   list: async (req, res) => {
     const list = await artModel.findAll({ 
+      include: [ 
+      { model: userModel, 
+        as: `art_artist_uu`
+      }, 
+      { model: fileModel, 
+        as: `art_file`, 
+        attributes: { exclude: ['file_data']}
+      }],
       attributes: { exclude: ['id'] }
     });
     if (!list) {
       res.status(404).json({
-        msg : `art list not found`
+        msg : `art not found`
       })
       return;
     }

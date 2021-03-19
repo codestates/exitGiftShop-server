@@ -1,6 +1,11 @@
 const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('bid', {
+module.exports = (sequelize, DataTypes) => {
+  return bid.init(sequelize, DataTypes);
+}
+
+class bid extends Sequelize.Model {
+  static init(sequelize, DataTypes) {
+  super.init({
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -75,4 +80,6 @@ module.exports = function(sequelize, DataTypes) {
       },
     ]
   });
-};
+  return bid;
+  }
+}
