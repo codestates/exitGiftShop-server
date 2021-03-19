@@ -1,5 +1,10 @@
-// 모델 불러오기
+// models
 const userModel = require("../../models").user;
+
+// .env
+require("dotenv").config();
+
+// jwt & function
 const {
   isAuthorized,
   generateAccessToken,
@@ -9,7 +14,13 @@ const {
   checkRefeshToken,
   resendAccessToken,
 } = require("./tokenFunctions");
-require("dotenv").config();
+
+// google oauth
+const { OAuth2Client } = require("google-auth-library");
+const CLIENT_ID = process.env.oauth_id;
+const client = new OAuth2Client(CLIENT_ID);
+
+// function
 module.exports = {
   // 회원가입
   signup: async (req, res) => {
@@ -108,7 +119,40 @@ module.exports = {
     res.json({ msg: "ok" });
   },
 
+  //oauth url get
+  url: (req, res) => {
+    res.send(getGoogleAuthURL());
+  },
+
+  code: (req, res) => {
+    console.log(req.headers.cookie);
+  },
+
   //oauth 로그인
 
+  hello: (req, res) => {
+    res.render("login");
+  },
+
+  callback: (req, res) => {
+    let token = req.body.token;
+    async function verify() {
+      const ticket = await client.verifyIdToken({
+        idToken: token,
+        audience: CLIENT_ID,
+      });
+      const payload = ticket.getPayload(); // 데이터 핸들러
+      const userid = payload["sub"]; // 데이터 핸들러
+      console.log(payload);
+    }
+    verify()
+      .then(() => {
+        res.cookie("session-token", token);
+        res.send("success");
+      })
+      .catch(console.error);
+  },
+
   //oauth 로그아웃
+  signoutoauth: (req, res) => {},
 };
