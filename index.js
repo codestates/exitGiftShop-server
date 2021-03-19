@@ -5,8 +5,13 @@ const cors = require("cors");
 const fs = require("fs");
 const https = require("https");
 const cookieParser = require("cookie-parser");
-const fileUpload = require('express-fileupload');
+const fileUpload = require("express-fileupload");
 const port = 4000;
+// views
+app.set("view engine", "ejs");
+app.get("/", (req, res) => {
+  res.render("index");
+});
 
 // router
 const indexRouter = require("./routes/index");
@@ -28,10 +33,11 @@ app.use(
 );
 
 const MEGABYTE = 1024 * 1024;
-app.use(fileUpload({
-  limits: { fileSize: 50 * MEGABYTE }, 
-}));
-
+app.use(
+  fileUpload({
+    limits: { fileSize: 50 * MEGABYTE },
+  })
+);
 
 // router
 app.use("/", indexRouter);
@@ -49,6 +55,6 @@ const server = https
     app
   )
   // .listen(port, () => console.log("https://back.exitgift.shop:4000"));
-.listen(port, () => console.log("https://localhost:4000"));
+  .listen(port, () => console.log("https://localhost:4000"));
 
 module.exports = server;
