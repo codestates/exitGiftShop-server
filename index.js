@@ -12,6 +12,7 @@ const indexRouter = require("./routes/index");
 const userRouter = require("./routes/user");
 const auctionRouter = require("./routes/auction");
 const fileRouter = require("./routes/file");
+const artRouter = require("./routes/art");
 
 // use
 app.use(express.static("public"));
@@ -33,6 +34,7 @@ app.use("/", indexRouter);
 app.use("/user", userRouter);
 app.use("/file", fileRouter);
 app.use("/auction", auctionRouter);
+app.use("/art", artRouter);
 
 // https
 const server = https

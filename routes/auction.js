@@ -3,8 +3,9 @@ const router = express.Router();
 
 const auctionController = require("../controllers/auction");
 
-router.get("/test", auctionController.test);
-// router.post("/", auctionController);
+router.get("/", auctionController.list);
+router.get("/:uuid", auctionController.search);
+router.post("/", auctionController.upload);
 // router.put("/", auctionController);
 // router.delete("/", auctionController);
 
