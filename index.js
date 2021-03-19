@@ -5,7 +5,6 @@ const cors = require("cors");
 const fs = require("fs");
 const https = require("https");
 const cookieParser = require("cookie-parser");
-const fileUpload = require('express-fileupload');
 const port = 4000;
 
 // router
@@ -27,15 +26,13 @@ app.use(
   })
 );
 
-const MEGABYTE = 1024 * 1024;
-app.use(fileUpload({
-  limits: { fileSize: 50 * MEGABYTE }, 
-}));
 
 
 // router
 app.use("/", indexRouter);
 app.use("/user", userRouter);
+app.use("/file", fileRouter);
+app.use("/auction", auctionRouter);
 
 // https
 const server = https
