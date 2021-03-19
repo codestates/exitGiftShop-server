@@ -1,0 +1,14 @@
+POST https://localhost:4000/art/upload
+content-type: application/json
+
+{
+  "file_id": "1",
+  "artist_uuid": "82865d2f-26b8-4611-85f1-933643995e79",
+  "title":"testTitle2",
+  "desc":"testDesc2",
+  "twitter":"testDesc3"
+}
+
+###
+
+GET https://localhost:4000/art

@@ -2,7 +2,7 @@
 const auctionModel = require("../../models").auction;
 
 module.exports = {
-  test: async (req, res) => {
+  list: async (req, res) => {
     res.json({ msg : 'test clear'});
   }
 };

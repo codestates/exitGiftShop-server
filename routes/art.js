@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const auctionController = require("../controllers/auction");
+const artController = require("../controllers/art");
 
-router.get("/", auctionController.list);
-// router.post("/", auctionController);
+router.get("/", artController.list);
+router.post("/upload", artController.upload);
 // router.put("/", auctionController);
 // router.delete("/", auctionController);
 
