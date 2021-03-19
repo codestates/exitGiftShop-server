@@ -1,10 +1,10 @@
-POST https://localhost:4000/art/upload
+POST https://localhost:4000/art
 content-type: application/json
 
 {
   "file_id": "1",
   "artist_uuid": "82865d2f-26b8-4611-85f1-933643995e79",
-  "title":"testTitle2",
+  "title":"testTitle4",
   "desc":"testDesc2",
   "twitter":"testDesc3"
 }
@@ -12,3 +12,29 @@ content-type: application/json
 ###
 
 GET https://localhost:4000/art
+
+###
+
+GET https://localhost:4000/art/b80e52ed-fe5e-4579-be86-0f68885a2c4e
+
+
+###
+
+GET https://localhost:4000/art/user/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+
+PUT https://localhost:4000/art/b80e52ed-fe5e-4579-be86-0f68885a2c4e
+content-type: application/json
+
+  # "file_id": "2",
+  # "artist_uuid": "82865d2f-26b8-4611-85f1-933643995e79",
+  # "title":"testTitleaaaaaaa",
+  # "desc":"testDescaaaaa",
+{
+  "twitter":"twitter"
+}
+
+###
+
+DELETE https://localhost:4000/art/b80e52ed-fe5e-4579-be86-0f68885a2c4e
