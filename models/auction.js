@@ -1,6 +1,11 @@
 const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('auction', {
+module.exports = (sequelize, DataTypes) => {
+  return auction.init(sequelize, DataTypes);
+}
+
+class auction extends Sequelize.Model {
+  static init(sequelize, DataTypes) {
+  super.init({
     art_uuid: {
       type: DataTypes.CHAR(36),
       allowNull: false,
@@ -80,4 +85,6 @@ module.exports = function(sequelize, DataTypes) {
       },
     ]
   });
-};
+  return auction;
+  }
+}

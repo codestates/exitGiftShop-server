@@ -1,6 +1,11 @@
 const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('file', {
+module.exports = (sequelize, DataTypes) => {
+  return file.init(sequelize, DataTypes);
+}
+
+class file extends Sequelize.Model {
+  static init(sequelize, DataTypes) {
+  super.init({
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -41,4 +46,6 @@ module.exports = function(sequelize, DataTypes) {
       },
     ]
   });
-};
+  return file;
+  }
+}

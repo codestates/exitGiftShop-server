@@ -5,7 +5,6 @@ module.exports = {
     const list = await fileModel.findAll({
       attributes: { exclude: ['file_data'] }
     });
-    console.log(list);
     if (!list) {
       res.status(404).json({
         msg : `file not found`
@@ -16,7 +15,6 @@ module.exports = {
     return;
   },
   preview: async (req, res) => {
-    console.log(+req.params.id)
     const id = (+req.params.id);
     if (!id) {
       res.status(400).json({

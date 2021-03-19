@@ -1,0 +1,60 @@
+GET https://localhost:4000/file
+
+###
+POST https://localhost:4000/art
+content-type: application/json
+
+{
+  "file_id": "1",
+  "artist_uuid": "82865d2f-26b8-4611-85f1-933643995e79",
+  "title":"testTitle10",
+  "desc":"testDesc2",
+  "twitter":"testDesc3"
+}
+
+###
+
+GET https://localhost:4000/art
+
+###
+
+GET https://localhost:4000/art/b80e52ed-fe5e-4579-be86-0f68885a2c4e
+
+
+###
+
+GET https://localhost:4000/art/user/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+
+PUT https://localhost:4000/art/b80e52ed-fe5e-4579-be86-0f68885a2c4e
+content-type: application/json
+
+  # "file_id": "2",
+  # "artist_uuid": "82865d2f-26b8-4611-85f1-933643995e79",
+  # "title":"testTitleaaaaaaa",
+  # "desc":"testDescaaaaa",
+{
+  "twitter":"twitter"
+}
+
+###
+
+DELETE https://localhost:4000/art/c1ef5574-4a17-4591-ae8e-9c98dc61d7f2
+
+###
+
+POST https://localhost:4000/auction
+content-type: application/json
+
+{
+  "art_uuid": "6b32b172-d40b-4d01-84ca-2fdd816d01df",
+  "start_time": "March 25, 2021 16:05:00",
+  "end_time":"March 25, 2021 16:05:00",
+  "hammer_price":"1000",
+  "now_price":"0"
+}
+
+###
+
+GET https://localhost:4000/auction
