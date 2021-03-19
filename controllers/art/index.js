@@ -10,22 +10,77 @@ module.exports = {
     });
     if (!list) {
       res.status(404).json({
-        msg : `file not found`
+        msg : `art list not found`
       })
       return;
     }
     res.json(list);
     return;
   },
-  upload: async (req, res) => {
-    const { artist_uuid, file_id, title, desc, twitter } = req.body;
-    if (!artist_uuid || !file_id || !title || !desc || !twitter) {
+  search: async (req, res) => {
+    const uuid = req.params.uuid;
+    if (!uuid) {
       res.status(400).json({
-        msg: `property required`
+        msg : `uuid is required`
+      })
+      return;
+    }
+    const art = await artModel.findOne({ 
+      where: { uuid: uuid },
+      attributes: { exclude: ['id'] }
+    });
+    if (!art) {
+      res.status(404).json({
+        msg : `art not found`
+      })
+      return;
+    }
+    res.json(art);
+    return;
+  },
+  searchArtist: async (req, res) => {
+    const uuid = req.params.uuid;
+    if (!uuid) {
+      res.status(400).json({
+        msg : `uuid is required`
+      })
+      return;
+    }
+    const art = await artModel.findAll({ 
+      where: { art_artist_uuid: uuid },
+      attributes: { exclude: ['id'] }
+    });
+    if (!art) {
+      res.status(404).json({
+        msg : `art not found`
+      })
+      return;
+    }
+    res.json(art);
+    return;
+  },
+  updateOne: async (req, res) => {
+    const { artist_uuid, file_id, title, desc, twitter } = req.body;
+    const uuid = req.params.uuid;
+    if (!uuid) {
+      res.status(400).json({
+        msg : `uuid is required`
+      })
+      return;
+    }
+
+    const artFind = await artModel.findOne({ 
+      where: { uuid },
+      attributes: [`uuid`]
+    });
+    if (!artFind) {
+      res.status(400).json({
+        msg: `art not found`
       });
       return;
     }
-    // const { art_artist_uuid, art_file_uuid, art_title, art_desc, art_twitter } = req.body;
+    const artObj = {};
+    if (artist_uuid) {
       const artist = await userModel.findOne({ 
         where: {uuid: artist_uuid },
         attributes: [`uuid`]
@@ -36,6 +91,9 @@ module.exports = {
         });
         return;
       }
+      artObj.art_artist_uuid = artist.dataValues.uuid;
+    }
+    if (file_id) {
       const file = await fileModel.findOne({ 
         where: {id: file_id},
         attributes: [`id`]
@@ -46,21 +104,104 @@ module.exports = {
         });
         return;
       }
-      const artObj = { 
-        art_file_id: file.dataValues.id,
-        art_artist_uuid: artist.dataValues.uuid,
-        art_title: title,
-        art_desc: desc,
-        art_twitter: twitter
-      }
-      const art = await artModel.create(artObj)
-      if (!art) {
-        res.status(500).json({
-          msg: `insert error`
-        });
-        return;
-      }
+      artObj.art_file_id = file.dataValues.id;
+    }
+
+    if (title) artObj.art_title = title;
+    if (desc) artObj.art_desc = desc;
+    if (twitter) artObj.art_twitter = twitter;
+    const updated = await artModel.update(artObj, {
+      where : { uuid }
+    });
+    if (!updated) {
+      res.status(500).json({
+        msg: `update error`
+      });
+      return;
+    }
+    res.json(artObj);
+    return;
+  },
+  deleteOne: async (req, res) => {
+    const uuid = req.params.uuid;
+
+    if (!uuid) {
+      res.status(400).json({
+        msg : `uuid is required`
+      })
+      return;
+    }
+
+    const artFind = await artModel.findOne({ 
+      where: { uuid },
+      attributes: { exclude: ['id'] }
+    });
+    
+    if (!artFind) {
+      res.status(400).json({
+        msg: `art not found`
+      });
+      return;
+    }
+
+    const deleted = await artModel.destroy({
+      where: { uuid }
+    });
+    if (!deleted) {
+      res.status(500).json({
+        msg : `delete error`
+      })
+      return;
+    }
+    res.json(artFind.dataValues);
+    return;
+  },
+  upload: async (req, res) => {
+    const { artist_uuid, file_id, title, desc, twitter } = req.body;
+    if (!artist_uuid || !file_id || !title || !desc || !twitter) {
+      res.status(400).json({
+        msg: `property required`
+      });
+      return;
+    }
+    const artist = await userModel.findOne({ 
+      where: {uuid: artist_uuid },
+      attributes: [`uuid`]
+    });
+    if (!artist) {
+      res.status(400).json({
+        msg: `artist not found`
+      });
+      return;
+    }
+    const file = await fileModel.findOne({ 
+      where: {id: file_id},
+      attributes: [`id`]
+    });
+    if (!file) {
+      res.status(400).json({
+        msg: `file not found`
+      });
+      return;
+    }
+    const artObj = { 
+      art_file_id: file.dataValues.id,
+      art_artist_uuid: artist.dataValues.uuid,
+      art_title: title,
+      art_desc: desc,
+      art_twitter: twitter
+    }
+    const [finded, created] = await artModel.findOrCreate({
+      where: { art_title: title },
+      defaults: artObj
+    });
+    if (created) {
       res.json(artObj);
       return;
+    }
+    res.status(500).json({
+      msg: `title already exist`
+    });
+    return;  
   }
 };
