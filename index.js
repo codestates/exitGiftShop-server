@@ -5,13 +5,10 @@ const cors = require("cors");
 const fs = require("fs");
 const https = require("https");
 const cookieParser = require("cookie-parser");
-const fileUpload = require("express-fileupload");
 const port = 4000;
+
 // views
 app.set("view engine", "ejs");
-app.get("/", (req, res) => {
-  res.render("index");
-});
 
 // router
 const indexRouter = require("./routes/index");
@@ -32,16 +29,11 @@ app.use(
   })
 );
 
-const MEGABYTE = 1024 * 1024;
-app.use(
-  fileUpload({
-    limits: { fileSize: 50 * MEGABYTE },
-  })
-);
-
 // router
 app.use("/", indexRouter);
 app.use("/user", userRouter);
+app.use("/file", fileRouter);
+app.use("/auction", auctionRouter);
 
 // https
 const server = https
