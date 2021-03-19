@@ -9,11 +9,11 @@ servers:
 tags:
   - name: User
   - name: File
+  - name: Art
   - name: Puzzle
   - name: Paddle
   - name: Likes
   - name: Bid
-  - name: Art
   - name: Auction
 paths:
   /signup:
@@ -95,10 +95,9 @@ paths:
       tags:
         - File
       summary: files list
-      description: Returns a list of file
+      description: Returns a file list
       responses:
         200:
-          description: search results matching criteria
           content:
             application/json:
               schema:
@@ -108,14 +107,14 @@ paths:
         404 :
           description: file not found
     
-  /file/{fileId}:
+  /file/{id}:
     get:
       tags:
         - File
       summary: Find file by ID
       description: Returns a single file
       parameters:
-        - name: fileId
+        - name: id
           in: path
           description: ID of file
           required: true
@@ -141,15 +140,181 @@ paths:
     get:
       tags:
         - Art
+      summary: Arts List
+      description: Returns a Art List
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/art-list'
+        404 :
+          description: file not found    
     post:
       tags:
         - Art
+      summary: Add Art
+      description: Returns a Uploaded Art
+      requestBody:
+        description: Art to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/art-post-json'
+      responses:
+        200:
+          description: uploaded json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/art-post-json'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+
+  /art/user/{uuid}:
+    get:
+      tags:
+        - Art
+      summary: Find art by User uuid
+      description: Returns a single Art
+      parameters:
+        - name: uuid
+          in: path
+          description: User uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/art-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+
+  /art/{uuid}:
+    get:
+      tags:
+        - Art
+      summary: Find art by uuid
+      description: Returns a single Art
+      parameters:
+        - name: uuid
+          in: path
+          description: Art uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/art-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
     put:
       tags:
         - Art
+      summary: Update Art
+      description: Returns a Updated Art Property
+      parameters:
+        - name: uuid
+          in: path
+          description: Art uuid
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Art to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/art-put-json'
+      responses:
+        200:
+          description: uploaded json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/art-put-json'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
     delete:
       tags:
         - Art
+      summary: Delete Art
+      description: Returns a Deleted Art Property
+      parameters:
+        - name: uuid
+          in: path
+          description: Art uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: deleted json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/art-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+                
   /auction:
     get:
       tags:
@@ -176,3 +341,73 @@ components:
         file_name:
           type: string
           example: picture.png
+
+
+    art-list:
+      type: object
+      properties:
+        art_file_id:
+          type: integer
+          format: id
+          example: 1
+        art_artist_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        uuid:
+          type: string
+          example: e44f21af-a7c3-4c64-bf26-6c10edd4d0c3
+        art_title:
+          type: string
+          example: test title
+        art_desc:
+          type: string
+          example: test desc
+        art_twitter:
+          type: string
+          example: test twit
+        createdAt:
+          type: string
+          example: "2021-03-19T04:54:36.000Z"
+        updatedAt:
+          type: string
+          example: "2021-03-19T04:54:36.000Z"
+    art-post-json:
+      type: object
+      properties:
+        file_id:
+          type: integer
+          format: id
+          example: 1
+        artist_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        title:
+          type: string
+          example: testTitle
+        desc:
+          type: string
+          example: testDesc
+        twitter:
+          type: string
+          example: testDesc
+    art-put-json:
+      type: object
+      properties:
+        desc:
+          type: string
+          example: testDesc
+        twitter:
+          type: string
+          example: testDesc
+    client-err-json:
+      type: object
+      properties:
+        msg:
+          type: string
+          example: uuid is required
+    server-err-json:
+      type: object
+      properties:
+        msg:
+          type: string
+          example: title already exist
