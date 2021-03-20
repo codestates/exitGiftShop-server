@@ -27,7 +27,7 @@ module.exports = {
     const { user_password, user_email, user_nick } = req.body;
 
     if (!user_password || !user_email || !user_nick) {
-      return res.status(422).send("Unprocessable Entity");
+      return res.status(422).json({ msg: "need more information" });
     }
 
     const [find, created] = await userModel.findOrCreate({
@@ -50,10 +50,13 @@ module.exports = {
       });
       return;
     }
-    res.json({
-      msg: `find ok`,
-    });
-    return;
+    if (find) {
+      res.status(409).json({
+        msg: `duplicate email`,
+      });
+      return;
+    }
+    res.status(400).json({ msg: "err" });
   },
 
   // 로그인
@@ -103,7 +106,7 @@ module.exports = {
       },
     });
     if (!result) {
-      res.json({ msg: "not authorized" });
+      res.status(401).json({ msg: "not authorized" });
       return;
     }
     delete result.dataValues.user_password;
@@ -115,51 +118,187 @@ module.exports = {
 
   // 로그아웃
   signout: (req, res) => {
-    res.clearCookie("refreshToken", { maxAge: 0 });
-    res.json({ msg: "ok" });
-  },
-
-  //oauth url get
-  url: (req, res) => {
-    res.send(getGoogleAuthURL());
-  },
-
-  code: (req, res) => {
-    console.log(req.headers.cookie);
+    res.clearCookie("refreshToken");
   },
 
   //oauth 로그인
-
-  helloRender: (req, res) => {
-    res.render("login");
-  },
-
-  callback: (req, res) => {
+  callback: async (req, res) => {
     let token = req.body.token;
-    async function verify() {
-      const ticket = await client.verifyIdToken({
-        idToken: token,
-        audience: CLIENT_ID,
-      });
-      const payload = ticket.getPayload(); // 데이터 핸들러
-      const userid = payload["sub"]; // 데이터 핸들러
-      console.log(payload);
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: CLIENT_ID,
+    });
+    const payload = ticket.getPayload(); // 데이터 핸들러
+    const user_email = payload["email"]; // 데이터 핸들러
+    console.log(user_email);
+    const [find, created] = await userModel.findOrCreate({
+      where: {
+        user_email: user_email,
+      },
+      defaults: {
+        user_use_currency: "$",
+        user_use_language: "kor",
+        user_type: "oauth",
+        user_password: "password",
+        user_nick: "null",
+        wallet_now_deposit: 0,
+        wallet_now_coin: 0,
+      },
+    });
+    if (find) {
+      delete find.dataValues.user_password;
+      const accessToken = generateAccessToken(find.dataValues);
+      const refreshToken = generateRefreshToken(find.dataValues);
+      sendRefreshToken(res, refreshToken);
+      sendAccessToken(res, accessToken);
+      return;
     }
-    verify()
-      .then(() => {
-        res.cookie("session-token", token);
-        res.send("success");
-      })
-      .catch(console.error);
+    callback();
   },
 
-  signoutoauth: (req, res) => {
-    res.clearCookie("session-token");
-    res.redirect("/");
+  list: async (req, res) => {
+    const list = await userModel.findAll({
+      attributes: { exclude: ["id"] },
+    });
+    if (!list) {
+      res.status(404).json({
+        msg: `auction not found`,
+      });
+      return;
+    }
+    res.json(list);
+    return;
   },
 
-  // dashboard: (req, res) => {
-  //   let user = req.user;
-  //   res.render("dashboard", { user });
-  // },
+  search: async (req, res) => {
+    const uuid = req.params.uuid;
+    if (!uuid) {
+      res.status(400).json({
+        msg: `uuid is required`,
+      });
+      return;
+    }
+    const user = await userModel.findOne({
+      where: { uuid: uuid },
+      attributes: { exclude: ["id"] },
+    });
+    if (!user) {
+      res.status(404).json({
+        msg: `user not found`,
+      });
+      return;
+    }
+    res.json(user);
+    return;
+  },
+
+  searchPuzzle: async (req, res) => {
+    const uuid = req.params.uuid;
+    if (!uuid) {
+      res.status(400).json({
+        msg: `uuid is required`,
+      });
+      return;
+    }
+    const user = await userModel.findAll({
+      where: { user_puzzle_uuid: uuid },
+      attributes: { exclude: ["id"] },
+    });
+    if (!user) {
+      res.status(404).json({
+        msg: `puzzle not found`,
+      });
+      return;
+    }
+    res.json(user);
+    return;
+  },
+
+  searchPaddle: async (req, res) => {
+    const uuid = req.params.uuid;
+    if (!uuid) {
+      res.status(400).json({
+        msg: `uuid is required`,
+      });
+      return;
+    }
+    const user = await userModel.findAll({
+      where: { user_paddle_uuid: uuid },
+      attributes: { exclude: ["id"] },
+    });
+    if (!user) {
+      res.status(404).json({
+        msg: `paddle not found`,
+      });
+      return;
+    }
+    res.json(user);
+    return;
+  },
+
+  searchLikes: async (req, res) => {
+    const uuid = req.params.uuid;
+    if (!uuid) {
+      res.status(400).json({
+        msg: `uuid is required`,
+      });
+      return;
+    }
+    const user = await userModel.findAll({
+      where: { user_likes_uuid: uuid },
+      attributes: { exclude: ["id"] },
+    });
+    if (!user) {
+      res.status(404).json({
+        msg: `likes not found`,
+      });
+      return;
+    }
+    res.json(user);
+    return;
+  },
+
+  searchBid: async (req, res) => {
+    const uuid = req.params.uuid;
+    if (!uuid) {
+      res.status(400).json({
+        msg: `uuid is required`,
+      });
+      return;
+    }
+    const user = await userModel.findAll({
+      where: { user_bid_uuid: uuid },
+      attributes: { exclude: ["id"] },
+    });
+    if (!user) {
+      res.status(404).json({
+        msg: `bid not found`,
+      });
+      return;
+    }
+    res.json(user);
+    return;
+  },
+
+  searchArt: async (req, res) => {
+    const uuid = req.params.uuid;
+    if (!uuid) {
+      res.status(400).json({
+        msg: `uuid is required`,
+      });
+      return;
+    }
+    const user = await userModel.findAll({
+      where: { user_art_uuid: uuid },
+      attributes: { exclude: ["id"] },
+    });
+    if (!user) {
+      res.status(404).json({
+        msg: `art not found`,
+      });
+      return;
+    }
+    res.json(user);
+    return;
+  },
 };
