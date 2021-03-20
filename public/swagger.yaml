@@ -32,6 +32,37 @@ paths:
                   $ref: '#/components/schemas/user'
         404 :
           description: user not found
+  /user/{uuid}:
+    get:
+      tags:
+        - User
+      summary: Find user by uuid
+      description: Returns a single User
+      parameters:
+        - name: uuid
+          in: path
+          description: User uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
   /user/signup:
     post:
       tags:
@@ -137,53 +168,162 @@ paths:
                 items:
                   $ref: '#/components/schemas/user-refreshToken'
 
-  /account/{uuid}:
+  /user/art/{uuid}:
     get:
       tags:
         - User
+      summary: Find art by uuid
+      description: Returns a User Art
       parameters:
         - name: uuid
-          description: uuid
-          
-  /paddle:
+          in: path
+          description: User uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/art-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+  /user/bid/{uuid}:
     get:
       tags:
-        - Paddle
-    post:
-      tags:
-        - Paddle
-    put:
-      tags:
-        - Paddle
-    delete:
-      tags:
-        - Paddle
-  /likes:
+        - User
+      summary: Find bid by uuid
+      description: Returns a User Bid
+      parameters:
+        - name: uuid
+          in: path
+          description: User uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bid-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+  /user/likes/{uuid}:
     get:
       tags:
-        - Likes
-    post:
-      tags:
-        - Likes
-    put:
-      tags:
-        - Likes
-    delete:
-      tags:
-        - Likes
-  /bid:
+        - User
+      summary: Find likes by uuid
+      description: Returns a User Likes
+      parameters:
+        - name: uuid
+          in: path
+          description: User uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/likes-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+  /user/paddle/{uuid}:
     get:
       tags:
-        - Bid
-    post:
+        - User
+      summary: Find paddle by uuid
+      description: Returns a User Paddle
+      parameters:
+        - name: uuid
+          in: path
+          description: User uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/paddle-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+  /user/puzzle/{uuid}:
+    get:
       tags:
-        - Bid
-    put:
-      tags:
-        - Bid
-    delete:
-      tags:
-        - Bid
+        - User
+      summary: Find puzzle by uuid
+      description: Returns a User Puzzle
+      parameters:
+        - name: uuid
+          in: path
+          description: User uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/puzzle-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+
   /file:
     get:
       tags:
@@ -601,7 +741,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/puzzle'
+                  $ref: '#/components/schemas/puzzle-list'
         404 :
           description: puzzle not found
     post:
@@ -638,7 +778,7 @@ paths:
     get:
       tags:
         - Puzzle
-      summary: Find art by uuid
+      summary: Find puzzle by uuid
       description: Returns a single Puzzle
       parameters:
         - name: uuid
@@ -696,16 +836,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server-err-json'                
-  /puzzle/art/{uuid}:
+  /puzzle/auction/{uuid}:
     get:
       tags:
         - Puzzle
-      summary: Find puzzle by art uuid
+      summary: Find puzzle by auction uuid
       description: Returns a puzzles
       parameters:
         - name: uuid
           in: path
-          description: art uuid
+          description: puzzle uuid
           required: true
           schema:
             type: string
@@ -761,7 +901,562 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/server-err-json'                            
+                $ref: '#/components/schemas/server-err-json'
+  /paddle:
+    get:
+      tags:
+        - Paddle
+      summary: paddles list
+      description: Returns a paddles list
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/paddle-list'
+        404 :
+          description: paddle not found
+    post:
+      tags:
+        - Paddle
+      summary: Add Paddle
+      description: Returns a Uploaded paddle
+      requestBody:
+        description: paddle to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/paddle-post-json'
+      responses:
+        200:
+          description: uploaded json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/paddle-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+  /paddle/{uuid}:
+    get:
+      tags:
+        - Paddle
+      summary: Find paddle by uuid
+      description: Returns a single paddle
+      parameters:
+        - name: uuid
+          in: path
+          description: paddle uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/paddle-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+    delete:
+      tags:
+        - Paddle
+      summary: Delete paddle
+      description: Returns a Deleted paddle Property
+      parameters:
+        - name: uuid
+          in: path
+          description: paddle uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: deleted json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/paddle-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'                
+  /paddle/auction/{uuid}:
+    get:
+      tags:
+        - Paddle
+      summary: Find paddle by auction uuid
+      description: Returns a paddle
+      parameters:
+        - name: uuid
+          in: path
+          description: auction uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                $ref: '#/components/schemas/paddle-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'                
+  /paddle/user/{uuid}:
+    get:
+      tags:
+        - Paddle
+      summary: Find paddles by user uuid
+      description: Returns a paddles
+      parameters:
+        - name: uuid
+          in: path
+          description: user uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                $ref: '#/components/schemas/paddle-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+  /bid:
+    get:
+      tags:
+        - Bid
+      summary: bids list
+      description: Returns a bids list
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/bid-list'
+        404 :
+          description: paddle not found
+    post:
+      tags:
+        - Bid
+      summary: Add bid
+      description: Returns a Uploaded bid
+      requestBody:
+        description: bid to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bid-post-json'
+      responses:
+        200:
+          description: uploaded json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bid-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+  /bid/{uuid}:
+    get:
+      tags:
+        - Bid
+      summary: Find bid by uuid
+      description: Returns a single bid
+      parameters:
+        - name: uuid
+          in: path
+          description: bid uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bid-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+    delete:
+      tags:
+        - Bid
+      summary: Delete bid
+      description: Returns a Deleted paddle Property
+      parameters:
+        - name: uuid
+          in: path
+          description: bid uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: deleted json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bid-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'                
+  /bid/auction/{uuid}:
+    get:
+      tags:
+        - Bid
+      summary: Find bid by auction uuid
+      description: Returns a bid
+      parameters:
+        - name: uuid
+          in: path
+          description: bid uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                $ref: '#/components/schemas/bid-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'                
+  /bid/user/{uuid}:
+    get:
+      tags:
+        - Bid
+      summary: Find bids by user uuid
+      description: Returns a bids
+      parameters:
+        - name: uuid
+          in: path
+          description: user uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                $ref: '#/components/schemas/bid-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /likes:
+    get:
+      tags:
+        - Likes
+      summary: likes list
+      description: Returns a likes list
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/likes-list'
+        404 :
+          description: likes not found
+    post:
+      tags:
+        - Likes
+      summary: Add likes
+      description: Returns a Uploaded likes
+      requestBody:
+        description: likes to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/likes-post-json'
+      responses:
+        200:
+          description: uploaded json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/likes-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+  /likes/{uuid}:
+    get:
+      tags:
+        - Likes
+      summary: Find likes by uuid
+      description: Returns a single likes
+      parameters:
+        - name: uuid
+          in: path
+          description: likes uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/likes-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+    delete:
+      tags:
+        - Likes
+      summary: Delete likes
+      description: Returns a Deleted likes Property
+      parameters:
+        - name: uuid
+          in: path
+          description: likes uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: deleted json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/likes-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'                
+  /likes/auction/{uuid}:
+    get:
+      tags:
+        - Likes
+      summary: Find likes by auction uuid
+      description: Returns a likes
+      parameters:
+        - name: uuid
+          in: path
+          description: auction uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                $ref: '#/components/schemas/likes-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'                
+  /likes/user/{uuid}:
+    get:
+      tags:
+        - Likes
+      summary: Find likes by user uuid
+      description: Returns a likes
+      parameters:
+        - name: uuid
+          in: path
+          description: user uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                $ref: '#/components/schemas/likes-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+                
+                
+
 components:
   schemas:
     user:
@@ -935,7 +1630,6 @@ components:
           type: string
           example: testDesc
 
-
     auction-list:
       type: object
       properties:
@@ -988,6 +1682,7 @@ components:
         link:
           type: string
           example: "https://exitgift.shop/ongoing"
+
     auction-put-json:
       type: object
       properties:
@@ -1004,13 +1699,13 @@ components:
         uuid:
           type: string
           example: e44f21af-a7c3-4c64-bf26-6c10edd4d0c3
-        art_uuid:
+        puzzle_auction_uuid:
           type: string
           example: 82865d2f-26b8-4611-85f1-933643995e79
-        user_uuid:
+        puzzle_user_uuid:
           type: string
           example: 82865d2f-26b8-4611-85f1-933643995e79
-        price:
+        puzzle_price:
           type: number
           example: 10000
         createdAt:
@@ -1023,7 +1718,7 @@ components:
     puzzle-post-json:
       type: object
       properties:
-        art_uuid:
+        auction_uuid:
           type: string
           example: 82865d2f-26b8-4611-85f1-933643995e79
         user_uuid:
@@ -1032,3 +1727,103 @@ components:
         price:
           type: number
           example: 1000
+
+    paddle-list:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: e44f21af-a7c3-4c64-bf26-6c10edd4d0c3
+        paddle_auction_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        paddle_user_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        paddle_price:
+          type: number
+          example: 10000.12345678
+        createdAt:
+          type: string
+          example: "2021-03-19T04:54:36.000Z"
+        updatedAt:
+          type: string
+          example: "2021-03-19T04:54:36.000Z"
+
+    paddle-post-json:
+      type: object
+      properties:
+        auction_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        user_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        price:
+          type: number
+          example: 9999          
+
+    bid-list:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: e44f21af-a7c3-4c64-bf26-6c10edd4d0c3
+        bid_auction_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        bid_user_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        bid_price:
+          type: number
+          example: 10000.12345678
+        createdAt:
+          type: string
+          example: "2021-03-19T04:54:36.000Z"
+        updatedAt:
+          type: string
+          example: "2021-03-19T04:54:36.000Z"
+
+    bid-post-json:
+      type: object
+      properties:
+        auction_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        user_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        price:
+          type: number
+          example: 9999 
+
+          
+    likes-list:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: e44f21af-a7c3-4c64-bf26-6c10edd4d0c3
+        likes_auction_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        likes_user_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        createdAt:
+          type: string
+          example: "2021-03-19T04:54:36.000Z"
+        updatedAt:
+          type: string
+          example: "2021-03-19T04:54:36.000Z"
+
+    likes-post-json:
+      type: object
+      properties:
+        auction_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        user_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79

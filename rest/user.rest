@@ -29,4 +29,25 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXVpZCI6I
 POST https://localhost:4000/user/signout
 
 ###
+POST https://localhost:4000/signout
+
+###
 GET https://localhost:4000/user
+
+###
+GET https://localhost:4000/user/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+GET https://localhost:4000/user/puzzle/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+GET https://localhost:4000/user/paddle/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+GET https://localhost:4000/user/likes/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+GET https://localhost:4000/user/bid/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+GET https://localhost:4000/user/art/82865d2f-26b8-4611-85f1-933643995e79

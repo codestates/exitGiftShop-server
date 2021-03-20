@@ -1,5 +1,11 @@
 // models
 const userModel = require("../../models").user;
+const puzzleModel = require("../../models").puzzle;
+const auctionModel = require("../../models").auction;
+const paddleModel = require("../../models").paddle;
+const likesModel = require("../../models").likes;
+const bidModel = require("../../models").bid;
+const artModel = require("../../models").art;
 
 // .env
 require("dotenv").config();
@@ -118,7 +124,12 @@ module.exports = {
 
   // 로그아웃
   signout: (req, res) => {
-    res.clearCookie("refreshToken");
+    if (!req.cookies.refreshToken)
+      res.status(400).json({ msg: "not authorized" });
+    else {
+      res.clearCookie("refreshToken");
+      res.json({ msg: "ok" });
+    }
   },
 
   //oauth 로그인
@@ -200,17 +211,21 @@ module.exports = {
       });
       return;
     }
-    const user = await userModel.findAll({
-      where: { user_puzzle_uuid: uuid },
+    const puzzle = await puzzleModel.findAll({
+      where: { puzzle_user_uuid: uuid },
+      include: [
+        { model: userModel, as: `puzzle_user_uu` },
+        { model: auctionModel, as: `puzzle_auction_uu` },
+      ],
       attributes: { exclude: ["id"] },
     });
-    if (!user) {
+    if (!puzzle) {
       res.status(404).json({
         msg: `puzzle not found`,
       });
       return;
     }
-    res.json(user);
+    res.json(puzzle);
     return;
   },
 
@@ -222,17 +237,21 @@ module.exports = {
       });
       return;
     }
-    const user = await userModel.findAll({
-      where: { user_paddle_uuid: uuid },
+    const paddle = await paddleModel.findAll({
+      where: { paddle_user_uuid: uuid },
+      include: [
+        { model: userModel, as: `paddle_user_uu` },
+        { model: auctionModel, as: `paddle_auction_uu` },
+      ],
       attributes: { exclude: ["id"] },
     });
-    if (!user) {
+    if (!paddle) {
       res.status(404).json({
         msg: `paddle not found`,
       });
       return;
     }
-    res.json(user);
+    res.json(paddle);
     return;
   },
 
@@ -244,17 +263,21 @@ module.exports = {
       });
       return;
     }
-    const user = await userModel.findAll({
-      where: { user_likes_uuid: uuid },
+    const likes = await likesModel.findAll({
+      where: { likes_user_uuid: uuid },
+      include: [
+        { model: userModel, as: `likes_user_uu` },
+        { model: auctionModel, as: `likes_auction_uu` },
+      ],
       attributes: { exclude: ["id"] },
     });
-    if (!user) {
+    if (!likes) {
       res.status(404).json({
         msg: `likes not found`,
       });
       return;
     }
-    res.json(user);
+    res.json(likes);
     return;
   },
 
@@ -266,17 +289,21 @@ module.exports = {
       });
       return;
     }
-    const user = await userModel.findAll({
-      where: { user_bid_uuid: uuid },
+    const bid = await bidModel.findAll({
+      where: { bid_user_uuid: uuid },
+      include: [
+        { model: userModel, as: `bid_user_uu` },
+        { model: auctionModel, as: `bid_auction_uu` },
+      ],
       attributes: { exclude: ["id"] },
     });
-    if (!user) {
+    if (!bid) {
       res.status(404).json({
         msg: `bid not found`,
       });
       return;
     }
-    res.json(user);
+    res.json(bid);
     return;
   },
 
@@ -288,17 +315,18 @@ module.exports = {
       });
       return;
     }
-    const user = await userModel.findAll({
-      where: { user_art_uuid: uuid },
+    const art = await artModel.findAll({
+      where: { art_artist_uuid: uuid },
+      include: ["auctions"],
       attributes: { exclude: ["id"] },
     });
-    if (!user) {
+    if (!art) {
       res.status(404).json({
         msg: `art not found`,
       });
       return;
     }
-    res.json(user);
+    res.json(art);
     return;
   },
 };
