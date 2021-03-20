@@ -1,6 +1,6 @@
 // 모델 불러오기
 
-const puzzleModel = require("../../models").puzzle;
+const likesModel = require("../../models").likes;
 const auctionModel = require("../../models").auction;
 const userModel = require("../../models").user;
 const moment = require('moment');
@@ -9,7 +9,7 @@ moment().format();
 
 module.exports = {
   list: async (req, res) => {
-    const list = await puzzleModel.findAll({
+    const list = await likesModel.findAll({
       attributes: { exclude: ['id'] },
     });
     if (!list) {
@@ -29,17 +29,17 @@ module.exports = {
       })
       return;
     }
-    const puzzle = await puzzleModel.findOne({ 
+    const likes = await likesModel.findOne({ 
       where: { uuid: uuid },
       attributes: { exclude: ['id'] }
     });
-    if (!puzzle) {
+    if (!likes) {
       res.status(404).json({
-        msg : `puzzle not found`
+        msg : `likes not found`
       })
       return;
     }
-    res.json(puzzle);
+    res.json(likes);
     return;
   },
   searchAuction: async (req, res) => {
@@ -50,17 +50,17 @@ module.exports = {
       })
       return;
     }
-    const puzzle = await puzzleModel.findAll({ 
-      where: { puzzle_auction_uuid: uuid },
+    const likes = await likesModel.findAll({ 
+      where: { likes_auction_uuid: uuid },
       attributes: { exclude: ['id'] }
     });
-    if (!puzzle) {
+    if (!likes) {
       res.status(404).json({
         msg : `auction not found`
       })
       return;
     }
-    res.json(puzzle);
+    res.json(likes);
     return;
   },
   searchUser: async (req, res) => {
@@ -71,22 +71,22 @@ module.exports = {
       })
       return;
     }
-    const puzzle = await puzzleModel.findAll({ 
-      where: { puzzle_user_uuid: uuid },
+    const likes = await likesModel.findAll({ 
+      where: { likes_user_uuid: uuid },
       attributes: { exclude: ['id'] }
     });
-    if (!puzzle) {
+    if (!likes) {
       res.status(404).json({
-        msg : `puzzle not found`
+        msg : `likes not found`
       })
       return;
     }
-    res.json(puzzle);
+    res.json(likes);
     return;
   },
   upload: async (req, res) => {
-    let { auction_uuid, user_uuid, price } = req.body;
-    if (!auction_uuid || !user_uuid || !price) {
+    let { auction_uuid, user_uuid } = req.body;
+    if (!auction_uuid || !user_uuid) {
       res.status(400).json({
         msg: `property required`
       });
@@ -112,31 +112,30 @@ module.exports = {
       });
       return;
     }
-    const puzzleObj = { 
-      puzzle_auction_uuid: auction.dataValues.uuid,
-      puzzle_user_uuid: user.dataValues.uuid,
-      puzzle_price: price,
+    const likesObj = { 
+      likes_auction_uuid: auction.dataValues.uuid,
+      likes_user_uuid: user.dataValues.uuid,
     }
-    const puzzle = await puzzleModel.create(puzzleObj)
-    if (!puzzle) {
+    const likes = await likesModel.create(likesObj)
+    if (!likes) {
       res.status(500).json({
         msg: `insert error`
       });
       return;  
     }
     
-    const puzzleFind = await puzzleModel.findOne({ 
-      where: { uuid: puzzle.dataValues.uuid },
+    const likesFind = await likesModel.findOne({ 
+      where: { uuid: likes.dataValues.uuid },
       attributes: { exclude: ['id'] }
     });
     
-    if (!puzzleFind) {
+    if (!likesFind) {
       res.status(400).json({
-        msg: `puzzle not found`
+        msg: `likes not found`
       });
       return;
     }
-    res.json(puzzleFind.dataValues);
+    res.json(likesFind.dataValues);
     return;
   },
   deleteOne: async (req, res) => {
@@ -149,19 +148,19 @@ module.exports = {
       return;
     }
 
-    const puzzleFind = await puzzleModel.findOne({ 
+    const likesFind = await likesModel.findOne({ 
       where: { uuid },
       attributes: { exclude: ['id'] }
     });
     
-    if (!puzzleFind) {
+    if (!likesFind) {
       res.status(400).json({
-        msg: `puzzle not found`
+        msg: `likes not found`
       });
       return;
     }
 
-    const deleted = await puzzleModel.destroy({
+    const deleted = await likesModel.destroy({
       where: { uuid }
     });
     if (!deleted) {
@@ -170,7 +169,7 @@ module.exports = {
       })
       return;
     }
-    res.json(puzzleFind.dataValues);
+    res.json(likesFind.dataValues);
     return;
   },
 };
