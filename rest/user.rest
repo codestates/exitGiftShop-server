@@ -1,0 +1,53 @@
+### 테스트 중...
+
+POST https://localhost:4000/user/signup
+content-type: application/json
+
+{
+  "user_password": "guest",
+  "user_email": "guest@guest.com"
+}
+
+###
+POST https://localhost:4000/user/signin
+Content-Type: application/json
+
+{
+  "user_email": "guest@guest.com",
+  "user_password": "guest"
+}
+
+###
+GET https://localhost:4000/user/accessTokenRequest
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXVpZCI6ImM3MjYzOTNlLTQ2ZDYtNGFkNS05NzY0LTBkYzhmZTBhMDU2OCIsInVzZXJfdXNlX2N1cnJlbmN5IjoiJCIsInVzZXJfdXNlX2xhbmd1YWdlIjoia29yIiwidXNlcl90eXBlIjoiZ3Vlc3QiLCJ1c2VyX2VtYWlsIjoiZ3Vlc3RAZ3Vlc3QuY29tIiwidXNlcl9uaWNrIjoiZ3Vlc3QiLCJ3YWxsZXRfbm93X2RlcG9zaXQiOjEwMDAwMDAwLCJ3YWxsZXRfbm93X2NvaW4iOjEwMCwiY3JlYXRlZEF0IjoiMjAyMS0wMy0xOFQwOToxNjoyOS4wMDBaIiwidXBkYXRlZEF0IjoiMjAyMS0wMy0xOFQwOToxNjoyOS4wMDBaIiwiaWF0IjoxNjE2MjI2Njc0LCJleHAiOjE2MTYyMjY2ODl9.mNrKCeMRI4j8kbJ-EVYhS_zQpXGC1GxItOrFoHgvuEU
+
+###
+GET https://localhost:4000/user/refreshTokenRequest
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXVpZCI6ImM3MjYzOTNlLTQ2ZDYtNGFkNS05NzY0LTBkYzhmZTBhMDU2OCIsInVzZXJfdXNlX2N1cnJlbmN5IjoiJCIsInVzZXJfdXNlX2xhbmd1YWdlIjoia29yIiwidXNlcl90eXBlIjoiZ3Vlc3QiLCJ1c2VyX2VtYWlsIjoiZ3Vlc3RAZ3Vlc3QuY29tIiwidXNlcl9uaWNrIjoiZ3Vlc3QiLCJ3YWxsZXRfbm93X2RlcG9zaXQiOjEwMDAwMDAwLCJ3YWxsZXRfbm93X2NvaW4iOjEwMCwiY3JlYXRlZEF0IjoiMjAyMS0wMy0xOFQwOToxNjoyOS4wMDBaIiwidXBkYXRlZEF0IjoiMjAyMS0wMy0xOFQwOToxNjoyOS4wMDBaIiwiaWF0IjoxNjE2MjI2Njc0LCJleHAiOjE2MTYyMjY2ODl9.mNrKCeMRI4j8kbJ-EVYhS_zQpXGC1GxItOrFoHgvuEU
+
+###
+POST https://localhost:4000/user/signout
+
+###
+POST https://localhost:4000/signout
+
+###
+GET https://localhost:4000/user
+
+###
+GET https://localhost:4000/user/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+GET https://localhost:4000/user/puzzle/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+GET https://localhost:4000/user/paddle/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+GET https://localhost:4000/user/likes/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+GET https://localhost:4000/user/bid/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+GET https://localhost:4000/user/art/82865d2f-26b8-4611-85f1-933643995e79
