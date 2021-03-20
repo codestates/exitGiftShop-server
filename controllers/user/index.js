@@ -130,7 +130,7 @@ module.exports = {
 
   //oauth 로그인
 
-  hello: (req, res) => {
+  helloRender: (req, res) => {
     res.render("login");
   },
 
@@ -153,6 +153,13 @@ module.exports = {
       .catch(console.error);
   },
 
-  //oauth 로그아웃
-  signoutoauth: (req, res) => {},
+  signoutoauth: (req, res) => {
+    res.clearCookie("session-token");
+    res.redirect("/");
+  },
+
+  // dashboard: (req, res) => {
+  //   let user = req.user;
+  //   res.render("dashboard", { user });
+  // },
 };

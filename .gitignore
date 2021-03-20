@@ -118,3 +118,4 @@ dist
 # key secure
 cert.pem
 key.pem
+.pem

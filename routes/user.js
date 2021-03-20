@@ -13,7 +13,7 @@ router.post("/signout", userController.signout);
 // google oauth
 router.post("/callback", userController.callback);
 router.get("/signoutoauth", userController.signoutoauth);
-
-router.get("/", userController.hello);
+router.get("/", userController.helloRender);
+// router.get("/dashboard", userController.dashboard);
 
 module.exports = router;
