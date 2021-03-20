@@ -2,6 +2,10 @@
 
 const auctionModel = require("../../models").auction;
 const artModel = require("../../models").art;
+const bidModel = require("../../models").bid;
+const likesModel = require("../../models").likes;
+const paddleModel = require("../../models").paddle;
+const puzzleModel = require("../../models").puzzle;
 const moment = require('moment');
 moment().format(); 
 
@@ -9,7 +13,7 @@ moment().format();
 module.exports = {
   list: async (req, res) => {
     const list = await auctionModel.findAll({ 
-      include: [ `bids`, `likes`],
+      include: [ `bids`, `likes`, `paddles`, `puzzles`],
       attributes: { exclude: ['id'] },
     });
     if (!list) {
@@ -31,7 +35,7 @@ module.exports = {
     }
     const auction = await auctionModel.findOne({ 
       where: { uuid: uuid },
-      include: [ `bids`, `likes`],
+      include: [ `bids`, `likes`, `paddles`, `puzzles`],
       attributes: { exclude: ['id'] }
     });
     if (!auction) {
@@ -53,7 +57,7 @@ module.exports = {
     }
     const auction = await auctionModel.findAll({ 
       where: { art_uuid: uuid },
-      include: [ `bids`, `likes`],
+      include: [ `bids`, `likes`, `paddles`, `puzzles`],
       attributes: { exclude: ['id'] }
     });
     if (!auction) {
@@ -171,8 +175,7 @@ module.exports = {
       return;
     }
     const auction = await auctionModel.findOne({ 
-      where: { uuid },
-      attributes: [`uuid`]
+      where: { uuid }
     });
     if (!auction) {
       res.status(400).json({
@@ -195,19 +198,28 @@ module.exports = {
 
     const auctionFind = await auctionModel.findOne({ 
       where: { uuid },
+      include: [ `bids`, `likes`, `paddles`, `puzzles`],
       attributes: { exclude: ['id'] }
     });
     
     if (!auctionFind) {
       res.status(400).json({
-        msg: `art not found`
+        msg: `auction not found`
       });
       return;
     }
 
+    try {
     const deleted = await auctionModel.destroy({
       where: { uuid }
     });
+    } catch(err) {
+      res.status(500).json({
+        msg : `data referenced by another dater`,
+        data : auctionFind.dataValues
+      });
+      return;
+    }
     if (!deleted) {
       res.status(500).json({
         msg : `delete error`

@@ -20,12 +20,12 @@ class paddle extends Sequelize.Model {
       unique: "UC_uuid",
       defaultValue: DataTypes.UUIDV4
     },
-    paddle_art_uuid: {
+    paddle_auction_uuid: {
       type: DataTypes.CHAR(36),
       allowNull: false,
       comment: "패들 작품 uuid",
       references: {
-        model: 'art',
+        model: 'auction',
         key: 'uuid'
       }
     },
@@ -37,6 +37,11 @@ class paddle extends Sequelize.Model {
         model: 'user',
         key: 'uuid'
       }
+    },
+    paddle_price: {
+      type: DataTypes.DECIMAL(10,0),
+      allowNull: false,
+      comment: "패들 가격"
     }
   }, {
     sequelize,
@@ -60,10 +65,10 @@ class paddle extends Sequelize.Model {
         ]
       },
       {
-        name: "FK_paddle_paddle_art_uuid_art_uuid",
+        name: "FK_paddle_paddle_auction_uuid_auction_uuid",
         using: "BTREE",
         fields: [
-          { name: "paddle_art_uuid" },
+          { name: "paddle_auction_uuid" },
         ]
       },
       {

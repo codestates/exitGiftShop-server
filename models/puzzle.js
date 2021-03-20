@@ -20,12 +20,12 @@ class puzzle extends Sequelize.Model {
       unique: "UC_uuid",
       defaultValue: DataTypes.UUIDV4
     },
-    puzzle_art_uuid: {
+    puzzle_auction_uuid: {
       type: DataTypes.CHAR(36),
       allowNull: false,
-      comment: "퍼즐 작품 uuid",
+      comment: "퍼즐 경매 uuid",
       references: {
-        model: 'art',
+        model: 'auction',
         key: 'uuid'
       }
     },
@@ -37,6 +37,11 @@ class puzzle extends Sequelize.Model {
         model: 'user',
         key: 'uuid'
       }
+    },
+    puzzle_price: {
+      type: DataTypes.DECIMAL(10,0),
+      allowNull: false,
+      comment: "퍼즐 가격"
     }
   }, {
     sequelize,
@@ -60,10 +65,10 @@ class puzzle extends Sequelize.Model {
         ]
       },
       {
-        name: "FK_puzzle_puzzle_art_uuid_art_uuid",
+        name: "FK_puzzle_puzzle_auction_uuid_auction_uuid",
         using: "BTREE",
         fields: [
-          { name: "puzzle_art_uuid" },
+          { name: "puzzle_auction_uuid" },
         ]
       },
       {

@@ -20,7 +20,7 @@ class likes extends Sequelize.Model {
       unique: "UC_uuid",
       defaultValue: DataTypes.UUIDV4
     },
-    user_uuid: {
+    likes_user_uuid: {
       type: DataTypes.CHAR(36),
       allowNull: false,
       comment: "회원 uuid",
@@ -29,7 +29,7 @@ class likes extends Sequelize.Model {
         key: 'uuid'
       }
     },
-    auction_uuid: {
+    likes_auction_uuid: {
       type: DataTypes.CHAR(36),
       allowNull: false,
       comment: "경매 uuid",
@@ -63,14 +63,14 @@ class likes extends Sequelize.Model {
         name: "FK_like_user_uuid_user_uuid",
         using: "BTREE",
         fields: [
-          { name: "user_uuid" },
+          { name: "likes_user_uuid" },
         ]
       },
       {
-        name: "FK_like_auction_uuid_auction_uuid",
+        name: "FK_likes_likes_auction_uuid_auction_uuid",
         using: "BTREE",
         fields: [
-          { name: "auction_uuid" },
+          { name: "likes_auction_uuid" },
         ]
       },
     ]

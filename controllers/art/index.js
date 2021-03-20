@@ -6,7 +6,7 @@ const fileModel = require("../../models").file;
 module.exports = {
   list: async (req, res) => {
     const list = await artModel.findAll({ 
-      include: [ `auctions`,`puzzles`,`paddles`],
+      include: [ `auctions` ],
       attributes: { exclude: ['id'] }
     });
     if (!list) {
@@ -28,7 +28,7 @@ module.exports = {
     }
     const art = await artModel.findOne({ 
       where: { uuid: uuid },
-      include: [ `auctions`,`puzzles`,`paddles`],
+      include: [ `auctions` ],
       attributes: { exclude: ['id'] }
     });
     if (!art) {
@@ -50,7 +50,7 @@ module.exports = {
     }
     const art = await artModel.findAll({ 
       where: { art_artist_uuid: uuid },
-      include: [ `auctions`,`puzzles`,`paddles`],
+      include: [ `auctions` ],
       attributes: { exclude: ['id'] }
     });
     if (!art) {
@@ -195,6 +195,7 @@ module.exports = {
 
     const artFind = await artModel.findOne({ 
       where: { uuid },
+      include: [ `auctions` ],
       attributes: { exclude: ['id'] }
     });
     
@@ -205,9 +206,17 @@ module.exports = {
       return;
     }
 
-    const deleted = await artModel.destroy({
-      where: { uuid }
-    });
+    try {
+      const deleted = await artModel.destroy({
+        where: { uuid }
+      });
+    } catch(err) {
+      res.status(500).json({
+        msg : `data referenced by another dater`,
+        data : artFind.dataValues
+      });
+      return;
+    }
     if (!deleted) {
       res.status(500).json({
         msg : `delete error`

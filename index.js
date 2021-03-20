@@ -17,6 +17,9 @@ const auctionRouter = require("./routes/auction");
 const fileRouter = require("./routes/file");
 const artRouter = require("./routes/art");
 const puzzleRouter = require("./routes/puzzle");
+const paddleRouter = require("./routes/paddle");
+const likesRouter = require("./routes/likes");
+const bidRouter = require("./routes/bid");
 
 // use
 app.use(express.static("public"));
@@ -38,6 +41,9 @@ app.use("/file", fileRouter);
 app.use("/auction", auctionRouter);
 app.use("/art", artRouter);
 app.use("/puzzle", puzzleRouter);
+app.use("/paddle", paddleRouter);
+app.use("/likes", likesRouter);
+app.use("/bid", bidRouter);
 
 // https
 const server = https

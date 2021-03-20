@@ -38,19 +38,7 @@ paths:
       parameters:
         - name: uuid
           description: uuid
-  /puzzle:
-    get:
-      tags:
-        - Puzzle
-    post:
-      tags:
-        - Puzzle
-    put:
-      tags:
-        - Puzzle
-    delete:
-      tags:
-        - Puzzle
+                
   /paddle:
     get:
       tags:
@@ -493,7 +481,181 @@ paths:
           content:
             application/json:
               schema:
+                $ref: '#/components/schemas/server-err-json' 
+  /puzzle:
+    get:
+      tags:
+        - Puzzle
+      summary: puzzles list
+      description: Returns a puzzles list
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/puzzle'
+        404 :
+          description: puzzle not found
+    post:
+      tags:
+        - Puzzle
+      summary: Add Puzzle
+      description: Returns a Uploaded puzzle
+      requestBody:
+        description: puzzle to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/puzzle-post-json'
+      responses:
+        200:
+          description: uploaded json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/puzzle-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+  /puzzle/{uuid}:
+    get:
+      tags:
+        - Puzzle
+      summary: Find art by uuid
+      description: Returns a single Puzzle
+      parameters:
+        - name: uuid
+          in: path
+          description: Puzzle uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/puzzle-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'
+    delete:
+      tags:
+        - Puzzle
+      summary: Delete Puzzle
+      description: Returns a Deleted Puzzle Property
+      parameters:
+        - name: uuid
+          in: path
+          description: Puzzle uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: deleted json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/puzzle-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
                 $ref: '#/components/schemas/server-err-json'                
+  /puzzle/art/{uuid}:
+    get:
+      tags:
+        - Puzzle
+      summary: Find puzzle by art uuid
+      description: Returns a puzzles
+      parameters:
+        - name: uuid
+          in: path
+          description: art uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                $ref: '#/components/schemas/puzzle-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'                
+  /puzzle/user/{uuid}:
+    get:
+      tags:
+        - Puzzle
+      summary: Find puzzle by user uuid
+      description: Returns a puzzles
+      parameters:
+        - name: uuid
+          in: path
+          description: user uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                $ref: '#/components/schemas/puzzle-list'
+        400:
+          description: request err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client-err-json'
+        500:
+          description: server err
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server-err-json'                            
 components:
   schemas:
     client-err-json:
@@ -593,10 +755,10 @@ components:
           type: string
           example: "2021-03-19T04:54:36.000Z"
         auction_hammer_price:
-          type: integer
+          type: number
           example: 10000
         auction_now_price:
-          type: integer
+          type: number
           example: 1000
         auction_link:
           type: string
@@ -624,10 +786,10 @@ components:
           type: string
           example: "2021-03-19T04:54:36.000Z"
         hammer_price:
-          type: integer
+          type: number
           example: 10000
         now_price:
-          type: integer
+          type: number
           example: 1000
         link:
           type: string
@@ -636,8 +798,43 @@ components:
       type: object
       properties:
         hammer_price:
-          type: integer
+          type: number
           example: 200000
         now_price:
-          type: integer
+          type: number
+          example: 1000
+
+    puzzle-list:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: e44f21af-a7c3-4c64-bf26-6c10edd4d0c3
+        art_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        user_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        price:
+          type: number
+          example: 10000
+        createdAt:
+          type: string
+          example: "2021-03-19T04:54:36.000Z"
+        updatedAt:
+          type: string
+          example: "2021-03-19T04:54:36.000Z"
+
+    puzzle-post-json:
+      type: object
+      properties:
+        art_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        user_uuid:
+          type: string
+          example: 82865d2f-26b8-4611-85f1-933643995e79
+        price:
+          type: number
           example: 1000

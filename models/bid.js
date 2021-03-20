@@ -20,19 +20,19 @@ class bid extends Sequelize.Model {
       unique: "UC_uuid",
       defaultValue: DataTypes.UUIDV4
     },
-    user_uuid: {
+    bid_user_uuid: {
       type: DataTypes.CHAR(36),
       allowNull: false,
-      comment: "회원 uuid",
+      comment: "입찰 회원 uuid",
       references: {
         model: 'user',
         key: 'uuid'
       }
     },
-    auction_uuid: {
+    bid_auction_uuid: {
       type: DataTypes.CHAR(36),
       allowNull: false,
-      comment: "경매 uuid",
+      comment: "입찰 경매 uuid",
       references: {
         model: 'auction',
         key: 'uuid'
@@ -65,14 +65,14 @@ class bid extends Sequelize.Model {
         ]
       },
       {
-        name: "FK_bid_user_uuid_user_uuid",
+        name: "FK_bid_bid_user_uuid_user_uuid",
         using: "BTREE",
         fields: [
           { name: "user_uuid" },
         ]
       },
       {
-        name: "FK_bid_bid_price_auction_uuid",
+        name: "FK_bid_bid_auction_uuid_auction_uuid",
         using: "BTREE",
         fields: [
           { name: "auction_uuid" },
