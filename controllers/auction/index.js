@@ -2,10 +2,7 @@
 
 const auctionModel = require("../../models").auction;
 const artModel = require("../../models").art;
-const bidModel = require("../../models").bid;
-const likesModel = require("../../models").likes;
-const paddleModel = require("../../models").paddle;
-const puzzleModel = require("../../models").puzzle;
+const fileModel = require("../../models").file;
 const moment = require('moment');
 moment().format(); 
 
@@ -13,7 +10,8 @@ moment().format();
 module.exports = {
   list: async (req, res) => {
     const list = await auctionModel.findAll({ 
-      include: [ `bids`, `likes`, `paddles`, `puzzles`],
+      include: [ `bids`, `likes`, `paddles`, `puzzles`,
+      { model: artModel, as: "art_uu"}],
       attributes: { exclude: ['id'] },
     });
     if (!list) {
@@ -35,7 +33,8 @@ module.exports = {
     }
     const auction = await auctionModel.findOne({ 
       where: { uuid: uuid },
-      include: [ `bids`, `likes`, `paddles`, `puzzles`],
+      include: [ `bids`, `likes`, `paddles`, `puzzles`, 
+      { model: artModel, as: "art_uu"}],
       attributes: { exclude: ['id'] }
     });
     if (!auction) {
@@ -175,6 +174,8 @@ module.exports = {
       return;
     }
     const auction = await auctionModel.findOne({ 
+      include: [ `bids`, `likes`, `paddles`, `puzzles`,
+      { model: artModel, as: "art_uu"}],
       where: { uuid }
     });
     if (!auction) {
@@ -198,7 +199,8 @@ module.exports = {
 
     const auctionFind = await auctionModel.findOne({ 
       where: { uuid },
-      include: [ `bids`, `likes`, `paddles`, `puzzles`],
+      include: [ `bids`, `likes`, `paddles`, `puzzles`,
+      { model: artModel, as: "art_uu"}],
       attributes: { exclude: ['id'] }
     });
     

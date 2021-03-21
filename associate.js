@@ -10,6 +10,7 @@ auction.hasMany(puzzle, { as: "puzzles", foreignKey: "puzzle_auction_uuid", sour
 
 file.hasMany(art, { as: "arts", foreignKey: "art_file_id"});
 
+
 user.hasMany(art, { as: "arts", foreignKey: "art_artist_uuid", sourceKey: "uuid"});
 user.hasMany(bid, { as: "bids", foreignKey: "bid_user_uuid", sourceKey: "uuid"});
 user.hasMany(likes, { as: "likes", foreignKey: "likes_user_uuid", sourceKey: "uuid"});
