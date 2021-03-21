@@ -1,8 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-/* GET home page. */
+/* Oauth test */
 router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
+  res.render("login", { title: "Express" });
+});
+
+router.get("/signout", (req, res) => {
+  res.clearCookie("refreshToken");
+  res.redirect("/");
 });
 module.exports = router;

@@ -3,19 +3,18 @@
 const bidModel = require("../../models").bid;
 const auctionModel = require("../../models").auction;
 const userModel = require("../../models").user;
-const moment = require('moment');
-moment().format(); 
-
+const moment = require("moment");
+moment().format();
 
 module.exports = {
   list: async (req, res) => {
     const list = await bidModel.findAll({
-      attributes: { exclude: ['id'] },
+      attributes: { exclude: ["id"] },
     });
     if (!list) {
       res.status(404).json({
-        msg : `auction not found`
-      })
+        msg: `auction not found`,
+      });
       return;
     }
     res.json(list);
@@ -25,18 +24,18 @@ module.exports = {
     const uuid = req.params.uuid;
     if (!uuid) {
       res.status(400).json({
-        msg : `uuid is required`
-      })
+        msg: `uuid is required`,
+      });
       return;
     }
-    const bid = await bidModel.findOne({ 
+    const bid = await bidModel.findOne({
       where: { uuid: uuid },
-      attributes: { exclude: ['id'] }
+      attributes: { exclude: ["id"] },
     });
     if (!bid) {
       res.status(404).json({
-        msg : `bid not found`
-      })
+        msg: `bid not found`,
+      });
       return;
     }
     res.json(bid);
@@ -46,18 +45,18 @@ module.exports = {
     const uuid = req.params.uuid;
     if (!uuid) {
       res.status(400).json({
-        msg : `uuid is required`
-      })
+        msg: `uuid is required`,
+      });
       return;
     }
-    const bid = await bidModel.findAll({ 
+    const bid = await bidModel.findAll({
       where: { bid_auction_uuid: uuid },
-      attributes: { exclude: ['id'] }
+      attributes: { exclude: ["id"] },
     });
     if (!bid) {
       res.status(404).json({
-        msg : `auction not found`
-      })
+        msg: `auction not found`,
+      });
       return;
     }
     res.json(bid);
@@ -67,18 +66,18 @@ module.exports = {
     const uuid = req.params.uuid;
     if (!uuid) {
       res.status(400).json({
-        msg : `uuid is required`
-      })
+        msg: `uuid is required`,
+      });
       return;
     }
-    const bid = await bidModel.findAll({ 
+    const bid = await bidModel.findAll({
       where: { bid_user_uuid: uuid },
-      attributes: { exclude: ['id'] }
+      attributes: { exclude: ["id", "user_password"] },
     });
     if (!bid) {
       res.status(404).json({
-        msg : `bid not found`
-      })
+        msg: `bid not found`,
+      });
       return;
     }
     res.json(bid);
@@ -88,51 +87,51 @@ module.exports = {
     let { auction_uuid, user_uuid, price } = req.body;
     if (!auction_uuid || !user_uuid || !price) {
       res.status(400).json({
-        msg: `property required`
+        msg: `property required`,
       });
       return;
     }
-    const auction = await auctionModel.findOne({ 
-      where: {uuid: auction_uuid },
-      attributes: [`uuid`]
+    const auction = await auctionModel.findOne({
+      where: { uuid: auction_uuid },
+      attributes: [`uuid`],
     });
     if (!auction) {
       res.status(400).json({
-        msg: `auction not found`
+        msg: `auction not found`,
       });
       return;
     }
-    const user = await userModel.findOne({ 
-      where: {uuid: user_uuid },
-      attributes: [`uuid`]
+    const user = await userModel.findOne({
+      where: { uuid: user_uuid },
+      attributes: [`uuid`],
     });
     if (!user) {
       res.status(400).json({
-        msg: `user not found`
+        msg: `user not found`,
       });
       return;
     }
-    const bidObj = { 
+    const bidObj = {
       bid_auction_uuid: auction.dataValues.uuid,
       bid_user_uuid: user.dataValues.uuid,
       bid_price: price,
-    }
-    const bid = await bidModel.create(bidObj)
+    };
+    const bid = await bidModel.create(bidObj);
     if (!bid) {
       res.status(500).json({
-        msg: `insert error`
+        msg: `insert error`,
       });
-      return;  
+      return;
     }
-    
-    const bidFind = await bidModel.findOne({ 
+
+    const bidFind = await bidModel.findOne({
       where: { uuid: bid.dataValues.uuid },
-      attributes: { exclude: ['id'] }
+      attributes: { exclude: ["id"] },
     });
-    
+
     if (!bidFind) {
       res.status(400).json({
-        msg: `bid not found`
+        msg: `bid not found`,
       });
       return;
     }
@@ -144,30 +143,30 @@ module.exports = {
 
     if (!uuid) {
       res.status(400).json({
-        msg : `uuid is required`
-      })
+        msg: `uuid is required`,
+      });
       return;
     }
 
-    const bidFind = await bidModel.findOne({ 
+    const bidFind = await bidModel.findOne({
       where: { uuid },
-      attributes: { exclude: ['id'] }
+      attributes: { exclude: ["id"] },
     });
-    
+
     if (!bidFind) {
       res.status(400).json({
-        msg: `bid not found`
+        msg: `bid not found`,
       });
       return;
     }
 
     const deleted = await bidModel.destroy({
-      where: { uuid }
+      where: { uuid },
     });
     if (!deleted) {
       res.status(500).json({
-        msg : `delete error`
-      })
+        msg: `delete error`,
+      });
       return;
     }
     res.json(bidFind.dataValues);

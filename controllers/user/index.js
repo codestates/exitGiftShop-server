@@ -10,6 +10,9 @@ const artModel = require("../../models").art;
 // .env
 require("dotenv").config();
 
+// cryto
+const CryptoJS = require("crypto-js");
+
 // jwt & function
 const {
   isAuthorized,
@@ -30,12 +33,15 @@ const client = new OAuth2Client(CLIENT_ID);
 module.exports = {
   // 회원가입
   signup: async (req, res) => {
-    const { user_password, user_email, user_nick } = req.body;
+    const { user_password, user_email } = req.body;
 
-    if (!user_password || !user_email || !user_nick) {
+    if (!user_password || !user_email) {
       return res.status(422).json({ msg: "need more information" });
     }
-
+    const ciphertext = CryptoJS.AES.encrypt(
+      JSON.stringify(user_password),
+      "secret key 123"
+    ).toString();
     const [find, created] = await userModel.findOrCreate({
       where: {
         user_email: user_email,
@@ -44,8 +50,8 @@ module.exports = {
         user_use_currency: "$",
         user_use_language: "kor",
         user_type: "user",
-        user_password: user_password,
-        user_nick: user_nick,
+        user_password: ciphertext,
+        user_nick: "user",
         wallet_now_deposit: 0,
         wallet_now_coin: 0,
       },
@@ -169,7 +175,7 @@ module.exports = {
 
   list: async (req, res) => {
     const list = await userModel.findAll({
-      attributes: { exclude: ["id"] },
+      attributes: { exclude: ["id", "user_password"] },
     });
     if (!list) {
       res.status(404).json({
@@ -191,7 +197,7 @@ module.exports = {
     }
     const user = await userModel.findOne({
       where: { uuid: uuid },
-      attributes: { exclude: ["id"] },
+      attributes: { exclude: ["id", "user_password"] },
     });
     if (!user) {
       res.status(404).json({
@@ -214,8 +220,16 @@ module.exports = {
     const puzzle = await puzzleModel.findAll({
       where: { puzzle_user_uuid: uuid },
       include: [
-        { model: userModel, as: `puzzle_user_uu` },
-        { model: auctionModel, as: `puzzle_auction_uu` },
+        {
+          model: userModel,
+          as: `puzzle_user_uu`,
+          attributes: { exclude: ["id", "user_password"] },
+        },
+        {
+          model: auctionModel,
+          as: `puzzle_auction_uu`,
+          attributes: { exclude: ["id"] },
+        },
       ],
       attributes: { exclude: ["id"] },
     });
@@ -240,8 +254,16 @@ module.exports = {
     const paddle = await paddleModel.findAll({
       where: { paddle_user_uuid: uuid },
       include: [
-        { model: userModel, as: `paddle_user_uu` },
-        { model: auctionModel, as: `paddle_auction_uu` },
+        {
+          model: userModel,
+          as: `paddle_user_uu`,
+          attributes: { exclude: ["id", "user_password"] },
+        },
+        {
+          model: auctionModel,
+          as: `paddle_auction_uu`,
+          attributes: { exclude: ["id"] },
+        },
       ],
       attributes: { exclude: ["id"] },
     });
@@ -266,8 +288,16 @@ module.exports = {
     const likes = await likesModel.findAll({
       where: { likes_user_uuid: uuid },
       include: [
-        { model: userModel, as: `likes_user_uu` },
-        { model: auctionModel, as: `likes_auction_uu` },
+        {
+          model: userModel,
+          as: `likes_user_uu`,
+          attributes: { exclude: ["id", "user_password"] },
+        },
+        {
+          model: auctionModel,
+          as: `likes_auction_uu`,
+          attributes: { exclude: ["id"] },
+        },
       ],
       attributes: { exclude: ["id"] },
     });
@@ -292,8 +322,16 @@ module.exports = {
     const bid = await bidModel.findAll({
       where: { bid_user_uuid: uuid },
       include: [
-        { model: userModel, as: `bid_user_uu` },
-        { model: auctionModel, as: `bid_auction_uu` },
+        {
+          model: userModel,
+          as: `bid_user_uu`,
+          attributes: { exclude: ["id", "user_password"] },
+        },
+        {
+          model: auctionModel,
+          as: `bid_auction_uu`,
+          attributes: { exclude: ["id"] },
+        },
       ],
       attributes: { exclude: ["id"] },
     });
@@ -317,7 +355,13 @@ module.exports = {
     }
     const art = await artModel.findAll({
       where: { art_artist_uuid: uuid },
-      include: ["auctions"],
+      include: [
+        {
+          model: userModel,
+          as: "art_artist_uu",
+          attributes: { exclude: ["id", "user_password"] },
+        },
+      ],
       attributes: { exclude: ["id"] },
     });
     if (!art) {
