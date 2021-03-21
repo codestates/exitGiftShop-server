@@ -76,7 +76,7 @@ module.exports = {
           as: "puzzles",
           attributes: { exclude: ["id"] },
         },
-        { model: artModel, as: "art_uu"}],
+        { model: artModel, as: "art_uu"},
       ],
       attributes: { exclude: ["id"] },
     });
@@ -298,7 +298,7 @@ module.exports = {
           as: "puzzles",
           attributes: { exclude: ["id"] },
         },
-        { model: artModel, as: "art_uu"}],
+        { model: artModel, as: "art_uu"},
       ],
       attributes: { exclude: ["id"] },
     });
