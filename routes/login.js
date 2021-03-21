@@ -13,12 +13,13 @@ router.post("/callback", loginController.callback);
 
 /* Oauth test */
 router.get("/", function (req, res) {
-  res.render("login");
+  res.render("index");
 });
 
 // 로그아웃
 router.get("/signout", (req, res) => {
   res.clearCookie("refreshToken");
   res.redirect("/");
-}),
-  (module.exports = router);
+});
+
+module.exports = router;
