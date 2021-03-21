@@ -1,0 +1,27 @@
+###
+POST https://localhost:4000/signup
+content-type: application/json
+
+{
+  "user_password": "1234",
+  "user_email": "crypto1@crypto1.com"
+}
+
+###
+POST https://localhost:4000/signin
+Content-Type: application/json
+
+{
+  "user_email": "guest@guest.com",
+  "user_password": "guest"
+}
+
+###
+GET https://localhost:4000/accessTokenRequest
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiMWRjM2Y4OGQtM2IwYi00MDg0LTk1NzAtYjk5NTIzMzE2NzkyIiwidXNlcl91c2VfY3VycmVuY3kiOiIkIiwidXNlcl91c2VfbGFuZ3VhZ2UiOiJrb3IiLCJ1c2VyX3R5cGUiOiJvYXV0aCIsInVzZXJfZW1haWwiOiJuYW5zOTEwNTIxQGdtYWlsLmNvbSIsInVzZXJfbmljayI6Im51bGwiLCJ3YWxsZXRfbm93X2RlcG9zaXQiOjAsIndhbGxldF9ub3dfY29pbiI6MCwiY3JlYXRlZEF0IjoiMjAyMS0wMy0yMFQxMzozNDo1NS4wMDBaIiwidXBkYXRlZEF0IjoiMjAyMS0wMy0yMFQxMzozNDo1NS4wMDBaIiwiaWF0IjoxNjE2MzMxNzI5LCJleHAiOjE2MTg5MjM3Mjl9.vkGpVXr7nhjHmS5FcdSkNHJfcRikdftTDJ1oXgrtJwk
+
+###
+GET https://localhost:4000/refreshTokenRequest
+
+###
+GET https://localhost:4000/signout
