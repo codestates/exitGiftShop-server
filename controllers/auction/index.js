@@ -6,20 +6,39 @@ const bidModel = require("../../models").bid;
 const likesModel = require("../../models").likes;
 const paddleModel = require("../../models").paddle;
 const puzzleModel = require("../../models").puzzle;
-const moment = require('moment');
-moment().format(); 
-
+const moment = require("moment");
+moment().format();
 
 module.exports = {
   list: async (req, res) => {
-    const list = await auctionModel.findAll({ 
-      include: [ `bids`, `likes`, `paddles`, `puzzles`],
-      attributes: { exclude: ['id'] },
+    const list = await auctionModel.findAll({
+      include: [
+        {
+          model: bidModel,
+          as: "bids",
+          attributes: { exclude: ["id"] },
+        },
+        {
+          model: likesModel,
+          as: "likes",
+          attributes: { exclude: ["id"] },
+        },
+        {
+          model: paddleModel,
+          as: "paddles",
+          attributes: { exclude: ["id"] },
+        },
+        {
+          model: puzzleModel,
+          as: "puzzles",
+          attributes: { exclude: ["id"] },
+        },
+      ],
     });
     if (!list) {
       res.status(404).json({
-        msg : `auction not found`
-      })
+        msg: `auction not found`,
+      });
       return;
     }
     res.json(list);
@@ -29,19 +48,40 @@ module.exports = {
     const uuid = req.params.uuid;
     if (!uuid) {
       res.status(400).json({
-        msg : `uuid is required`
-      })
+        msg: `uuid is required`,
+      });
       return;
     }
-    const auction = await auctionModel.findOne({ 
+    const auction = await auctionModel.findOne({
       where: { uuid: uuid },
-      include: [ `bids`, `likes`, `paddles`, `puzzles`],
-      attributes: { exclude: ['id'] }
+      include: [
+        {
+          model: bidModel,
+          as: "bids",
+          attributes: { exclude: ["id"] },
+        },
+        {
+          model: likesModel,
+          as: "likes",
+          attributes: { exclude: ["id"] },
+        },
+        {
+          model: paddleModel,
+          as: "paddles",
+          attributes: { exclude: ["id"] },
+        },
+        {
+          model: puzzleModel,
+          as: "puzzles",
+          attributes: { exclude: ["id"] },
+        },
+      ],
+      attributes: { exclude: ["id"] },
     });
     if (!auction) {
       res.status(404).json({
-        msg : `auction not found`
-      })
+        msg: `auction not found`,
+      });
       return;
     }
     res.json(auction);
@@ -51,108 +91,143 @@ module.exports = {
     const uuid = req.params.uuid;
     if (!uuid) {
       res.status(400).json({
-        msg : `uuid is required`
-      })
+        msg: `uuid is required`,
+      });
       return;
     }
-    const auction = await auctionModel.findAll({ 
+    const auction = await auctionModel.findAll({
       where: { art_uuid: uuid },
-      include: [ `bids`, `likes`, `paddles`, `puzzles`],
-      attributes: { exclude: ['id'] }
+      include: [
+        {
+          model: bidModel,
+          as: "bids",
+          attributes: { exclude: ["id"] },
+        },
+        {
+          model: likesModel,
+          as: "likes",
+          attributes: { exclude: ["id"] },
+        },
+        {
+          model: paddleModel,
+          as: "paddles",
+          attributes: { exclude: ["id"] },
+        },
+        {
+          model: puzzleModel,
+          as: "puzzles",
+          attributes: { exclude: ["id"] },
+        },
+      ],
+      attributes: { exclude: ["id"] },
     });
     if (!auction) {
       res.status(404).json({
-        msg : `art not found`
-      })
+        msg: `art not found`,
+      });
       return;
     }
     res.json(auction);
     return;
   },
   upload: async (req, res) => {
-    let { art_uuid, start_time, end_time, hammer_price, now_price, link } = req.body;
+    let {
+      art_uuid,
+      start_time,
+      end_time,
+      hammer_price,
+      now_price,
+      link,
+    } = req.body;
     if (!art_uuid || !start_time || !now_price) {
       res.status(400).json({
-        msg: `property required`
+        msg: `property required`,
       });
       return;
     }
     start_time = moment(start_time).format();
-    
+
     if (!end_time) {
-      end_time = moment(start_time).add(1, 'days').format();
+      end_time = moment(start_time).add(1, "days").format();
     } else {
       end_time = moment(end_time).format();
     }
-    const art = await artModel.findOne({ 
-      where: {uuid: art_uuid },
-      attributes: [`uuid`, `art_title`]
+    const art = await artModel.findOne({
+      where: { uuid: art_uuid },
+      attributes: [`uuid`, `art_title`],
     });
     if (!art) {
       res.status(400).json({
-        msg: `art not found`
+        msg: `art not found`,
       });
       return;
     }
-    const auctionObj = { 
+    const auctionObj = {
       art_uuid: art.dataValues.uuid,
       auction_start_time: start_time,
       auction_end_time: end_time,
       auction_hammer_price: hammer_price,
       auction_now_price: now_price,
-      auction_link: link
-    }
+      auction_link: link,
+    };
     const [auction, created] = await auctionModel.findOrCreate({
       where: { art_uuid: art.dataValues.uuid },
-      defaults: auctionObj
-    })
+      defaults: auctionObj,
+    });
     if (created) {
       res.json(auction.dataValues);
       return;
     }
     res.status(500).json({
-      msg: `auction already exist`
+      msg: `auction already exist`,
     });
-    return;  
+    return;
   },
   updateOne: async (req, res) => {
-    let { art_uuid, start_time, end_time, hammer_price, now_price, link } = req.body;
-    
+    let {
+      art_uuid,
+      start_time,
+      end_time,
+      hammer_price,
+      now_price,
+      link,
+    } = req.body;
+
     const uuid = req.params.uuid;
     if (!uuid) {
       res.status(400).json({
-        msg : `uuid is required`
-      })
+        msg: `uuid is required`,
+      });
       return;
     }
 
     start_time = moment(start_time).format();
     if (!end_time) {
-      end_time = moment(start_time).add(1, 'days').format();
+      end_time = moment(start_time).add(1, "days").format();
     } else {
       end_time = moment(end_time).format();
     }
-    
-    const auctionFind = await auctionModel.findOne({ 
+
+    const auctionFind = await auctionModel.findOne({
       where: { uuid },
-      attributes: [`uuid`]
+      attributes: [`uuid`],
     });
     if (!auctionFind) {
       res.status(400).json({
-        msg: `auction not found`
+        msg: `auction not found`,
       });
       return;
     }
     const auctionObj = {};
 
     if (art_uuid) {
-      const art = await artModel.findOne({ 
-        where: {uuid: art_uuid },
-        attributes: [`uuid`]
+      const art = await artModel.findOne({
+        where: { uuid: art_uuid },
+        attributes: [`uuid`],
       });
       if (!art) {
         res.status(400).json({
-          msg: `art not found`
+          msg: `art not found`,
         });
         return;
       }
@@ -166,20 +241,20 @@ module.exports = {
     if (link) auctionObj.auction_link = link;
 
     const updated = await auctionModel.update(auctionObj, {
-      where : { uuid }
+      where: { uuid },
     });
     if (!updated) {
       res.status(500).json({
-        msg: `update error`
+        msg: `update error`,
       });
       return;
     }
-    const auction = await auctionModel.findOne({ 
-      where: { uuid }
+    const auction = await auctionModel.findOne({
+      where: { uuid },
     });
     if (!auction) {
       res.status(400).json({
-        msg: `auction not found`
+        msg: `auction not found`,
       });
       return;
     }
@@ -191,39 +266,60 @@ module.exports = {
 
     if (!uuid) {
       res.status(400).json({
-        msg : `uuid is required`
-      })
+        msg: `uuid is required`,
+      });
       return;
     }
 
-    const auctionFind = await auctionModel.findOne({ 
+    const auctionFind = await auctionModel.findOne({
       where: { uuid },
-      include: [ `bids`, `likes`, `paddles`, `puzzles`],
-      attributes: { exclude: ['id'] }
+      include: [
+        {
+          model: bidModel,
+          as: "bids",
+          attributes: { exclude: ["id"] },
+        },
+        {
+          model: likesModel,
+          as: "likes",
+          attributes: { exclude: ["id"] },
+        },
+        {
+          model: paddleModel,
+          as: "paddles",
+          attributes: { exclude: ["id"] },
+        },
+        {
+          model: puzzleModel,
+          as: "puzzles",
+          attributes: { exclude: ["id"] },
+        },
+      ],
+      attributes: { exclude: ["id"] },
     });
-    
+
     if (!auctionFind) {
       res.status(400).json({
-        msg: `auction not found`
+        msg: `auction not found`,
       });
       return;
     }
 
     try {
-    const deleted = await auctionModel.destroy({
-      where: { uuid }
-    });
-    } catch(err) {
+      const deleted = await auctionModel.destroy({
+        where: { uuid },
+      });
+    } catch (err) {
       res.status(500).json({
-        msg : `data referenced by another dater`,
-        data : auctionFind.dataValues
+        msg: `data referenced by another dater`,
+        data: auctionFind.dataValues,
       });
       return;
     }
     if (!deleted) {
       res.status(500).json({
-        msg : `delete error`
-      })
+        msg: `delete error`,
+      });
       return;
     }
     res.json(auctionFind.dataValues);
