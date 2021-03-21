@@ -1,0 +1,21 @@
+### 테스트 중...
+
+GET https://localhost:4000/user
+
+###
+GET https://localhost:4000/user/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+GET https://localhost:4000/user/puzzle/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+GET https://localhost:4000/user/paddle/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+GET https://localhost:4000/user/likes/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+GET https://localhost:4000/user/bid/82865d2f-26b8-4611-85f1-933643995e79
+
+###
+GET https://localhost:4000/user/art/82865d2f-26b8-4611-85f1-933643995e79

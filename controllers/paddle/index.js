@@ -1,6 +1,6 @@
 // 모델 불러오기
 
-const puzzleModel = require("../../models").puzzle;
+const paddleModel = require("../../models").paddle;
 const auctionModel = require("../../models").auction;
 const userModel = require("../../models").user;
 const moment = require("moment");
@@ -8,7 +8,7 @@ moment().format();
 
 module.exports = {
   list: async (req, res) => {
-    const list = await puzzleModel.findAll({
+    const list = await paddleModel.findAll({
       attributes: { exclude: ["id"] },
     });
     if (!list) {
@@ -28,17 +28,17 @@ module.exports = {
       });
       return;
     }
-    const puzzle = await puzzleModel.findOne({
+    const paddle = await paddleModel.findOne({
       where: { uuid: uuid },
       attributes: { exclude: ["id"] },
     });
-    if (!puzzle) {
+    if (!paddle) {
       res.status(404).json({
-        msg: `puzzle not found`,
+        msg: `paddle not found`,
       });
       return;
     }
-    res.json(puzzle);
+    res.json(paddle);
     return;
   },
   searchAuction: async (req, res) => {
@@ -49,17 +49,17 @@ module.exports = {
       });
       return;
     }
-    const puzzle = await puzzleModel.findAll({
-      where: { puzzle_auction_uuid: uuid },
+    const paddle = await paddleModel.findAll({
+      where: { paddle_auction_uuid: uuid },
       attributes: { exclude: ["id"] },
     });
-    if (!puzzle) {
+    if (!paddle) {
       res.status(404).json({
         msg: `auction not found`,
       });
       return;
     }
-    res.json(puzzle);
+    res.json(paddle);
     return;
   },
   searchUser: async (req, res) => {
@@ -70,17 +70,17 @@ module.exports = {
       });
       return;
     }
-    const puzzle = await puzzleModel.findAll({
-      where: { puzzle_user_uuid: uuid },
+    const paddle = await paddleModel.findAll({
+      where: { paddle_user_uuid: uuid },
       attributes: { exclude: ["id", "user_password"] },
     });
-    if (!puzzle) {
+    if (!paddle) {
       res.status(404).json({
-        msg: `puzzle not found`,
+        msg: `paddle not found`,
       });
       return;
     }
-    res.json(puzzle);
+    res.json(paddle);
     return;
   },
   upload: async (req, res) => {
@@ -103,7 +103,7 @@ module.exports = {
     }
     const user = await userModel.findOne({
       where: { uuid: user_uuid },
-      attributes: ["uuid"],
+      attributes: [`uuid`],
     });
     if (!user) {
       res.status(400).json({
@@ -111,31 +111,31 @@ module.exports = {
       });
       return;
     }
-    const puzzleObj = {
-      puzzle_auction_uuid: auction.dataValues.uuid,
-      puzzle_user_uuid: user.dataValues.uuid,
-      puzzle_price: price,
+    const paddleObj = {
+      paddle_auction_uuid: auction.dataValues.uuid,
+      paddle_user_uuid: user.dataValues.uuid,
+      paddle_price: price,
     };
-    const puzzle = await puzzleModel.create(puzzleObj);
-    if (!puzzle) {
+    const paddle = await paddleModel.create(paddleObj);
+    if (!paddle) {
       res.status(500).json({
         msg: `insert error`,
       });
       return;
     }
 
-    const puzzleFind = await puzzleModel.findOne({
-      where: { uuid: puzzle.dataValues.uuid },
-      attributes: { exclude: ["id"] },
+    const paddleFind = await paddleModel.findOne({
+      where: { uuid: paddle.dataValues.uuid },
+      attributes: { exclude: ["id", "user_password"] },
     });
 
-    if (!puzzleFind) {
+    if (!paddleFind) {
       res.status(400).json({
-        msg: `puzzle not found`,
+        msg: `paddle not found`,
       });
       return;
     }
-    res.json(puzzleFind.dataValues);
+    res.json(paddleFind.dataValues);
     return;
   },
   deleteOne: async (req, res) => {
@@ -148,19 +148,19 @@ module.exports = {
       return;
     }
 
-    const puzzleFind = await puzzleModel.findOne({
+    const paddleFind = await paddleModel.findOne({
       where: { uuid },
       attributes: { exclude: ["id"] },
     });
 
-    if (!puzzleFind) {
+    if (!paddleFind) {
       res.status(400).json({
-        msg: `puzzle not found`,
+        msg: `paddle not found`,
       });
       return;
     }
 
-    const deleted = await puzzleModel.destroy({
+    const deleted = await paddleModel.destroy({
       where: { uuid },
     });
     if (!deleted) {
@@ -169,7 +169,7 @@ module.exports = {
       });
       return;
     }
-    res.json(puzzleFind.dataValues);
+    res.json(paddleFind.dataValues);
     return;
   },
 };
