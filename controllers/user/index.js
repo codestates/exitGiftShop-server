@@ -14,6 +14,14 @@ require("dotenv").config();
 module.exports = {
   list: async (req, res) => {
     const list = await userModel.findAll({
+      include: [`arts`,`bids`,`likes`,`paddles`,`puzzles`],
+      order: [
+        [ `bids`, `id`, `DESC`],
+        [`puzzles`, `updatedAt`, `DESC`],
+        [`paddles`, `updatedAt`, `DESC`],
+        [`likes`, `updatedAt`, `DESC`],
+        [`arts`, `updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id", "user_password"] },
     });
     if (!list) {
@@ -36,6 +44,14 @@ module.exports = {
     }
     const user = await userModel.findOne({
       where: { uuid: uuid },
+      include: [`arts`,`bids`,`likes`,`paddles`,`puzzles`],
+      order: [
+        [ `bids`, `id`, `DESC`],
+        [`puzzles`, `updatedAt`, `DESC`],
+        [`paddles`, `updatedAt`, `DESC`],
+        [`likes`, `updatedAt`, `DESC`],
+        [`arts`, `updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id", "user_password"] },
     });
     if (!user) {
@@ -69,6 +85,9 @@ module.exports = {
           as: `puzzle_auction_uu`,
           attributes: { exclude: ["id"] },
         },
+      ],
+      order: [
+        [ `updatedAt`, `DESC`],
       ],
       attributes: { exclude: ["id"] },
     });
@@ -104,6 +123,9 @@ module.exports = {
           attributes: { exclude: ["id"] },
         },
       ],
+      order: [
+        [ `updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id"] },
     });
     if (!paddle) {
@@ -137,6 +159,9 @@ module.exports = {
           as: `likes_auction_uu`,
           attributes: { exclude: ["id"] },
         },
+      ],
+      order: [
+        [ `updatedAt`, `DESC`],
       ],
       attributes: { exclude: ["id"] },
     });
@@ -172,6 +197,9 @@ module.exports = {
           attributes: { exclude: ["id"] },
         },
       ],
+      order: [
+        [ `id`, `DESC`],
+      ],
       attributes: { exclude: ["id"] },
     });
     if (!bid) {
@@ -200,6 +228,9 @@ module.exports = {
           as: "art_artist_uu",
           attributes: { exclude: ["id", "user_password"] },
         },
+      ],
+      order: [
+        [ `updatedAt`, `DESC`],
       ],
       attributes: { exclude: ["id"] },
     });
