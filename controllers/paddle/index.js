@@ -10,6 +10,9 @@ module.exports = {
   list: async (req, res) => {
     const list = await paddleModel.findAll({
       attributes: { exclude: ["id"] },
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
     });
     if (!list) {
       res.status(404).json({
@@ -30,6 +33,9 @@ module.exports = {
     }
     const paddle = await paddleModel.findOne({
       where: { uuid: uuid },
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id"] },
     });
     if (!paddle) {
@@ -51,6 +57,9 @@ module.exports = {
     }
     const paddle = await paddleModel.findAll({
       where: { paddle_auction_uuid: uuid },
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id"] },
     });
     if (!paddle) {
@@ -72,6 +81,9 @@ module.exports = {
     }
     const paddle = await paddleModel.findAll({
       where: { paddle_user_uuid: uuid },
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id", "user_password"] },
     });
     if (!paddle) {

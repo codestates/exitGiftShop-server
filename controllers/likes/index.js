@@ -10,6 +10,9 @@ module.exports = {
   list: async (req, res) => {
     const list = await likesModel.findAll({
       attributes: { exclude: ["id"] },
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
     });
     if (!list) {
       res.status(404).json({
@@ -30,6 +33,9 @@ module.exports = {
     }
     const likes = await likesModel.findOne({
       where: { uuid: uuid },
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id"] },
     });
     if (!likes) {
@@ -51,6 +57,9 @@ module.exports = {
     }
     const likes = await likesModel.findAll({
       where: { likes_auction_uuid: uuid },
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id"] },
     });
     if (!likes) {
@@ -72,6 +81,9 @@ module.exports = {
     }
     const likes = await likesModel.findAll({
       where: { likes_user_uuid: uuid },
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id", "user_password"] },
     });
     if (!likes) {
@@ -125,6 +137,9 @@ module.exports = {
 
     const likesFind = await likesModel.findOne({
       where: { uuid: likes.dataValues.uuid },
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id"] },
     });
 
