@@ -9,6 +9,9 @@ moment().format();
 module.exports = {
   list: async (req, res) => {
     const list = await puzzleModel.findAll({
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id"] },
     });
     if (!list) {
@@ -30,6 +33,9 @@ module.exports = {
     }
     const puzzle = await puzzleModel.findOne({
       where: { uuid: uuid },
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id"] },
     });
     if (!puzzle) {
@@ -51,6 +57,9 @@ module.exports = {
     }
     const puzzle = await puzzleModel.findAll({
       where: { puzzle_auction_uuid: uuid },
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id"] },
     });
     if (!puzzle) {
@@ -72,6 +81,9 @@ module.exports = {
     }
     const puzzle = await puzzleModel.findAll({
       where: { puzzle_user_uuid: uuid },
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id", "user_password"] },
     });
     if (!puzzle) {

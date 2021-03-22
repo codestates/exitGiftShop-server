@@ -10,6 +10,9 @@ module.exports = {
   list: async (req, res) => {
     const list = await bidModel.findAll({
       attributes: { exclude: ["id"] },
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
     });
     if (!list) {
       res.status(404).json({
@@ -30,6 +33,9 @@ module.exports = {
     }
     const bid = await bidModel.findOne({
       where: { uuid: uuid },
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id"] },
     });
     if (!bid) {
@@ -51,6 +57,9 @@ module.exports = {
     }
     const bid = await bidModel.findAll({
       where: { bid_auction_uuid: uuid },
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id"] },
     });
     if (!bid) {
@@ -73,6 +82,9 @@ module.exports = {
     const bid = await bidModel.findAll({
       where: { bid_user_uuid: uuid },
       attributes: { exclude: ["id", "user_password"] },
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
     });
     if (!bid) {
       res.status(404).json({
@@ -103,6 +115,9 @@ module.exports = {
     }
     const user = await userModel.findOne({
       where: { uuid: user_uuid },
+      order: [
+        [`updatedAt`, `DESC`],
+      ],
       attributes: [`uuid`],
     });
     if (!user) {
