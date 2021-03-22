@@ -35,6 +35,12 @@ module.exports = {
         },
         { model: artModel, as: "art_uu"},
       ],
+      order: [
+        [ `bids`, `id`, `DESC`],
+        [`puzzles`, `updatedAt`, `DESC`],
+        [`paddles`, `updatedAt`, `DESC`],
+        [`likes`, `updatedAt`, `DESC`],
+      ]
     });
     if (!list) {
       res.status(404).json({
@@ -78,6 +84,12 @@ module.exports = {
         },
         { model: artModel, as: "art_uu"},
       ],
+      order: [
+        [ `bids`, `id`, `DESC`],
+        [`puzzles`, `updatedAt`, `DESC`],
+        [`paddles`, `updatedAt`, `DESC`],
+        [`likes`, `updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id"] },
     });
     if (!auction) {
@@ -120,6 +132,12 @@ module.exports = {
           as: "puzzles",
           attributes: { exclude: ["id"] },
         },
+      ],
+      order: [
+        [ `bids`, `id`, `DESC`],
+        [`puzzles`, `updatedAt`, `DESC`],
+        [`paddles`, `updatedAt`, `DESC`],
+        [`likes`, `updatedAt`, `DESC`],
       ],
       attributes: { exclude: ["id"] },
     });
@@ -299,6 +317,12 @@ module.exports = {
           attributes: { exclude: ["id"] },
         },
         { model: artModel, as: "art_uu"},
+      ],
+      order: [
+        [ `bids`, `id`, `DESC`],
+        [`puzzles`, `updatedAt`, `DESC`],
+        [`paddles`, `updatedAt`, `DESC`],
+        [`likes`, `updatedAt`, `DESC`],
       ],
       attributes: { exclude: ["id"] },
     });

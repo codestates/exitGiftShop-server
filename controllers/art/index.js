@@ -14,6 +14,9 @@ module.exports = {
           attributes: { exclude: ["id"] },
         },
       ],
+      order: [
+        [`auctions`, `updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id"] },
     });
     if (!list) {
@@ -42,6 +45,9 @@ module.exports = {
           attributes: { exclude: ["id"] },
         },
       ],
+      order: [
+        [`auctions`, `updatedAt`, `DESC`],
+      ],
       attributes: { exclude: ["id"] },
     });
     if (!art) {
@@ -69,6 +75,9 @@ module.exports = {
           as: "auctions",
           attributes: { exclude: ["id"] },
         },
+      ],
+      order: [
+        [`auctions`, `updatedAt`, `DESC`],
       ],
       attributes: { exclude: ["id", "user_password"] },
     });
@@ -220,6 +229,9 @@ module.exports = {
           as: "auctions",
           attributes: { exclude: ["id"] },
         },
+      ],
+      order: [
+        [`auctions`, `updatedAt`, `DESC`],
       ],
       attributes: { exclude: ["id"] },
     });
