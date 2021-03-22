@@ -13,7 +13,7 @@ router.post("/callback", loginController.callback);
 
 /* Oauth test */
 router.get("/", function (req, res) {
-  res.render("index");
+  res.render("login");
 });
 
 // 로그아웃

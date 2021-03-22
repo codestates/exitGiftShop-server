@@ -133,7 +133,6 @@ module.exports = {
     });
     const payload = ticket.getPayload(); // 데이터 핸들러
     const user_email = payload["email"]; // 데이터 핸들러
-    console.log(user_email);
     const [find, created] = await userModel.findOrCreate({
       where: {
         user_email: user_email,
@@ -148,25 +147,19 @@ module.exports = {
         wallet_now_coin: 0,
       },
     });
-    if (find) {
-      let result = await userModel.findOne({
-        where: {
-          user_email: user_email,
-        },
-      });
-      if (!result) {
-        res.status(401).json({ msg: "not authorized" });
-        return;
-      }
-      console.log(result);
-      delete result.dataValues.id;
-      delete result.dataValues.user_password;
-      const accessToken = generateAccessToken(result.dataValues);
-      const refreshToken = generateRefreshToken(result.dataValues);
-      sendRefreshToken(res, refreshToken);
-      sendAccessToken(res, accessToken);
-      return;
+    if (created) {
+      const data = created;
+      delete data.dataValues.id;
+      delete data.dataValues.user_password;
+      console.log(data);
+      res.json({ userInfo: data });
     }
-    callback();
+    if (find) {
+      const data = find;
+      delete data.dataValues.id;
+      delete data.dataValues.user_password;
+      console.log(data);
+      res.json({ userInfo: data });
+    }
   },
 };
