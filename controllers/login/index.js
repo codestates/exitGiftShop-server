@@ -82,7 +82,6 @@ module.exports = {
 
   refreshTokenRequest: async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
-    console.log(req.cookies);
     if (!refreshToken) {
       res.json({ msg: "refresh token not provided" });
       return;
