@@ -66,6 +66,7 @@ module.exports = {
 
   // 로그인
   accessTokenRequest: async (req, res) => {
+	  console.log(req.cookies);
     const accessTokenData = isAuthorized(req);
     if (!accessTokenData) {
       return res.json({ msg: "invalid access token" });
@@ -81,6 +82,7 @@ module.exports = {
   },
 
   refreshTokenRequest: async (req, res) => {
+	  console.log(req.cookies);
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) {
       res.json({ msg: "refresh token not provided" });
