@@ -108,7 +108,7 @@ module.exports = {
   signin: async (req, res) => {
     const { user_email, user_password } = req.body;
     const ciphertext = CryptoJS.AES.encrypt(
-      JSON.stringify(user_password),
+      user_password,
       process.env.SALT
     ).toString();
     let result = await userModel.findOne({
