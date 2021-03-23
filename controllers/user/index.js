@@ -6,7 +6,7 @@ const paddleModel = require("../../models").paddle;
 const likesModel = require("../../models").likes;
 const bidModel = require("../../models").bid;
 const artModel = require("../../models").art;
-
+const CryptoJS = require("crypto-js");
 // .env
 require("dotenv").config();
 
@@ -241,6 +241,97 @@ module.exports = {
       return;
     }
     res.json(art);
+    return;
+  },
+  updateOne: async (req, res) => {
+    let {
+      user_password,
+      user_email,
+      user_nick,
+      user_use_currency,
+      user_use_language,
+      user_type,
+      wallet_now_deposit,
+      wallet_now_coin,
+      pd,
+    } = req.body;
+    
+    const uuid = req.params.uuid;
+    if (!uuid) {
+      res.status(400).json({
+        msg: `uuid is required`,
+      });
+      return;
+    }
+    
+    // const password = req.params.password;
+    
+    // const userFind = await userModel.findOne({
+    //   where: { uuid },
+    // });
+    // if (!userFind) {
+    //   res.status(404).json({
+    //     msg: `user not found`,
+    //   });
+    //   return;
+    // }
+    // const bytes = CryptoJS.AES.decrypt(
+    //   userFind.dataValues.user_password,
+    //   process.env.SALT
+    // );
+    // let originalText = bytes.toString(CryptoJS.enc.Utf8);
+    // if (originalText !== password) {
+    //   res.status(401).json({ msg: "not auth" });
+    //   return;
+    // }
+
+    const userObj = {};
+    
+    if (user_password) {
+      const ciphertext = CryptoJS.AES.encrypt(
+        user_password,
+        process.env.SALT
+      ).toString();
+
+      userObj.user_password = ciphertext;
+    }
+    if (user_email) userObj.user_email = user_email;
+    if (user_nick) userObj.user_nick = user_nick;
+    if (user_use_language) userObj.user_use_language = user_use_language;
+    if (user_use_currency) userObj.user_use_currency = user_use_currency;
+    if (user_type) userObj.user_type = user_type;
+    if (wallet_now_deposit) userObj.wallet_now_deposit = wallet_now_deposit;
+    if (wallet_now_coin) userObj.wallet_now_coin = wallet_now_coin;
+    if (pd) userObj.pd = pd;
+    
+    const updated = await userModel.update(userObj, {
+      where: { uuid },
+    });
+    if (!updated) {
+      res.status(500).json({
+        msg: `update error`,
+      });
+      return;
+    }
+    const user = await userModel.findOne({ 
+      include: [`arts`,`bids`,`likes`,`paddles`,`puzzles`],
+      order: [
+        [ `bids`, `id`, `DESC`],
+        [`puzzles`, `updatedAt`, `DESC`],
+        [`paddles`, `updatedAt`, `DESC`],
+        [`likes`, `updatedAt`, `DESC`],
+        [`arts`, `updatedAt`, `DESC`],
+      ],
+      attributes: { exclude: ["id"] },
+      where: { uuid },
+    });
+    if (!user) {
+      res.status(404).json({
+        msg: `user not found`,
+      });
+      return;
+    }
+    res.json(user);
     return;
   },
 };

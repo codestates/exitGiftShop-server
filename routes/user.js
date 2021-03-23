@@ -11,6 +11,7 @@ router.get("/paddle/:uuid", userController.searchPaddle);
 router.get("/likes/:uuid", userController.searchLikes);
 router.get("/bid/:uuid", userController.searchBid);
 router.get("/art/:uuid", userController.searchArt);
+router.put("/:uuid", userController.updateOne);
 
 // put
 
