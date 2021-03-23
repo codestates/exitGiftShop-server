@@ -15,6 +15,7 @@ class user extends Sequelize.Model {
     },
     pd: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
     uuid: {
       type: DataTypes.CHAR(36),
