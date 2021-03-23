@@ -13,6 +13,9 @@ class user extends Sequelize.Model {
       primaryKey: true,
       comment: "아이디"
     },
+    pd: {
+      type: DataTypes.INTEGER,
+    },
     uuid: {
       type: DataTypes.CHAR(36),
       allowNull: false,
