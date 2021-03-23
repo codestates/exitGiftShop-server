@@ -14,13 +14,14 @@
   <script>
     function onSignIn(googleUser) {
       var id_token = googleUser.getAuthResponse().id_token;
+      console.log(id_token);
       var xhr = new XMLHttpRequest();
       xhr.open('POST', 'https://localhost:4000/callback');
       xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify({token: id_token}));
       xhr.onload = function() {
         console.log('Signed in as: ' + xhr.responseText);
       };
-      xhr.send(JSON.stringify({token: id_token}));
     }
   </script>
   <a href="#" onclick="signOut();">Sign out</a>
