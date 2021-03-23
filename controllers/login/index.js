@@ -32,7 +32,7 @@ module.exports = {
       return res.status(422).json({ msg: "need more information" });
     }
     const ciphertext = CryptoJS.AES.encrypt(
-      JSON.stringify(user_password),
+      user_password,
       process.env.SALT
     ).toString();
     const [find, created] = await userModel.findOrCreate({
@@ -107,18 +107,22 @@ module.exports = {
 
   signin: async (req, res) => {
     const { user_email, user_password } = req.body;
-    const ciphertext = CryptoJS.AES.encrypt(
-      user_password,
-      process.env.SALT
-    ).toString();
     let result = await userModel.findOne({
       where: {
         user_email,
-        user_password: ciphertext,
       },
     });
     if (!result) {
-      res.status(401).json({ msg: "not authorized" });
+      res.status(404).json({ msg: "user not found" });
+      return;
+    }
+    const bytes = CryptoJS.AES.decrypt(
+      result.dataValues.user_password,
+      process.env.SALT
+    );
+    let originalText = bytes.toString(CryptoJS.enc.Utf8);
+    if (originalText !== user_password) {
+      res.status(401).json({ msg: "not auth" });
       return;
     }
     delete result.dataValues.id;
