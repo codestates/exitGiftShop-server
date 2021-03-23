@@ -19,3 +19,12 @@ GET https://back.exitgift.shop:4000/user/bid/82865d2f-26b8-4611-85f1-933643995e7
 
 ###
 GET https://back.exitgift.shop:4000/user/art/82865d2f-26b8-4611-85f1-933643995e79
+
+
+###
+PUT https://localhost:4000/user/82865d2f-26b8-4611-85f1-933643995e79
+content-type: application/json
+
+{
+  "user_password": "1"
+}
