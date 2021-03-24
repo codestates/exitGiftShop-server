@@ -39,7 +39,7 @@ class bid extends Sequelize.Model {
       }
     },
     bid_price: {
-      type: DataTypes.DECIMAL(10,0),
+      type: DataTypes.DECIMAL(60,5),
       allowNull: false,
       comment: "입찰 가격"
     }
