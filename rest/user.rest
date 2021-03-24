@@ -20,11 +20,13 @@ GET https://back.exitgift.shop:4000/user/bid/82865d2f-26b8-4611-85f1-933643995e7
 ###
 GET https://back.exitgift.shop:4000/user/art/82865d2f-26b8-4611-85f1-933643995e79
 
-
 ###
-PUT https://localhost:4000/user/82865d2f-26b8-4611-85f1-933643995e79
-content-type: application/json
+PUT https://localhost:4000/user/406ab1ab-ac0e-4918-9350-d49a04faac88
+Content-Type: application/json
 
 {
-  "user_password": "1"
+  "user_nick": "rnskarb"
 }
+
+###
+GET https://localhost:4000/user/82865d2f-26b8-4611-85f1-933643995e79
