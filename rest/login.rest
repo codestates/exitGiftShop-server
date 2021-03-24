@@ -12,8 +12,8 @@ POST https://localhost:4000/signin
 Content-Type: application/json
 
 {
-  "user_email": "1@1.com",
-  "user_password": "1234"
+  "user_email": "guest@guest.com",
+  "user_password": "1"
 }
 
 ###
