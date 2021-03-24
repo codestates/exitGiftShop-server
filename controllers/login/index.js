@@ -154,15 +154,13 @@ module.exports = {
       const data = created;
       delete data.dataValues.id;
       delete data.dataValues.user_password;
-      console.log(data);
       res.json({ userInfo: data });
+      return;
     }
-    if (find) {
-      const data = find;
-      delete data.dataValues.id;
-      delete data.dataValues.user_password;
-      console.log(data);
-      res.json({ userInfo: data });
-    }
+    const data = find;
+    delete data.dataValues.id;
+    delete data.dataValues.user_password;
+    res.json({ userInfo: data });
+    return;
   },
 };
