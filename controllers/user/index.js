@@ -153,6 +153,7 @@ module.exports = {
         {
           model: auctionModel,
           as: `likes_auction_uu`,
+          include: ["art_uu"],
           attributes: { exclude: ["id"] },
         },
       ],
@@ -188,6 +189,7 @@ module.exports = {
         {
           model: auctionModel,
           as: `bid_auction_uu`,
+          include: ["art_uu"],
           attributes: { exclude: ["id"] },
         },
       ],
