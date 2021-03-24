@@ -152,15 +152,18 @@ module.exports = {
     });
     if (created) {
       const data = created;
+      console.log(data)
       delete data.dataValues.id;
       delete data.dataValues.user_password;
-      res.json({ userInfo: data });
+      console.log(data.dataValues);
+      console.log(created);
+      res.json({ userInfo: data.dataValues });
       return;
     }
     const data = find;
     delete data.dataValues.id;
     delete data.dataValues.user_password;
-    res.json({ userInfo: data });
+    res.json({ userInfo: data.dataValues });
     return;
   },
 };
