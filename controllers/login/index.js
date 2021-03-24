@@ -50,18 +50,13 @@ module.exports = {
       },
     });
     if (created) {
-      res.json({
-        msg: `created ok`,
-      });
+      res.json({ msg: `created ok`,});
       return;
     }
-    if (find) {
-      res.status(409).json({
-        msg: `duplicate email`,
-      });
-      return;
-    }
-    res.status(400).json({ msg: "err" });
+    res.status(409).json({
+      msg: `duplicate email`,
+    });
+    return;
   },
 
   // 로그인
