@@ -61,7 +61,6 @@ module.exports = {
 
   // 로그인
   accessTokenRequest: async (req, res) => {
-	  console.log(req.cookies);
     const accessTokenData = isAuthorized(req);
     if (!accessTokenData) {
       return res.json({ msg: "invalid access token" });
@@ -77,7 +76,6 @@ module.exports = {
   },
 
   refreshTokenRequest: async (req, res) => {
-	  console.log(req.cookies);
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) {
       res.json({ msg: "refresh token not provided" });
@@ -154,15 +152,18 @@ module.exports = {
     });
     if (created) {
       const data = created;
+      console.log(data)
       delete data.dataValues.id;
       delete data.dataValues.user_password;
-      res.json({ userInfo: data });
+      console.log(data.dataValues);
+      console.log(created);
+      res.json({ userInfo: data.dataValues });
       return;
     }
     const data = find;
     delete data.dataValues.id;
     delete data.dataValues.user_password;
-    res.json({ userInfo: data });
+    res.json({ userInfo: data.dataValues });
     return;
   },
 };
