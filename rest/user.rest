@@ -27,3 +27,6 @@ Content-Type: application/json
 {
   "user_nick": "rnskarb"
 }
+
+###
+GET https://localhost:4000/user/82865d2f-26b8-4611-85f1-933643995e79
