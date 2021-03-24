@@ -14,9 +14,9 @@ require("dotenv").config();
 module.exports = {
   list: async (req, res) => {
     const list = await userModel.findAll({
-      include: [`arts`,`bids`,`likes`,`paddles`,`puzzles`],
+      include: [`arts`, `bids`, `likes`, `paddles`, `puzzles`],
       order: [
-        [ `bids`, `id`, `DESC`],
+        [`bids`, `id`, `DESC`],
         [`puzzles`, `updatedAt`, `DESC`],
         [`paddles`, `updatedAt`, `DESC`],
         [`likes`, `updatedAt`, `DESC`],
@@ -44,15 +44,15 @@ module.exports = {
     }
     const user = await userModel.findOne({
       where: { uuid: uuid },
-      include: [`arts`,`bids`,`likes`,`paddles`,`puzzles`],
+      include: [`arts`, `bids`, `likes`, `paddles`, `puzzles`],
       order: [
-        [ `bids`, `id`, `DESC`],
+        [`bids`, `id`, `DESC`],
         [`puzzles`, `updatedAt`, `DESC`],
         [`paddles`, `updatedAt`, `DESC`],
         [`likes`, `updatedAt`, `DESC`],
         [`arts`, `updatedAt`, `DESC`],
       ],
-      attributes: { exclude: ["id", "user_password"] },
+      attributes: { exclude: ["id"] },
     });
     if (!user) {
       res.status(404).json({
@@ -86,9 +86,7 @@ module.exports = {
           attributes: { exclude: ["id"] },
         },
       ],
-      order: [
-        [ `updatedAt`, `DESC`],
-      ],
+      order: [[`updatedAt`, `DESC`]],
       attributes: { exclude: ["id"] },
     });
     if (!puzzle) {
@@ -123,9 +121,7 @@ module.exports = {
           attributes: { exclude: ["id"] },
         },
       ],
-      order: [
-        [ `updatedAt`, `DESC`],
-      ],
+      order: [[`updatedAt`, `DESC`]],
       attributes: { exclude: ["id"] },
     });
     if (!paddle) {
@@ -161,9 +157,7 @@ module.exports = {
           attributes: { exclude: ["id"] },
         },
       ],
-      order: [
-        [ `updatedAt`, `DESC`],
-      ],
+      order: [[`updatedAt`, `DESC`]],
       attributes: { exclude: ["id"] },
     });
     if (!likes) {
@@ -199,9 +193,7 @@ module.exports = {
           attributes: { exclude: ["id"] },
         },
       ],
-      order: [
-        [ `id`, `DESC`],
-      ],
+      order: [[`id`, `DESC`]],
       attributes: { exclude: ["id"] },
     });
     if (!bid) {
@@ -231,9 +223,7 @@ module.exports = {
           attributes: { exclude: ["id", "user_password"] },
         },
       ],
-      order: [
-        [ `updatedAt`, `DESC`],
-      ],
+      order: [[`updatedAt`, `DESC`]],
       attributes: { exclude: ["id"] },
     });
     if (!art) {
@@ -257,7 +247,7 @@ module.exports = {
       wallet_now_coin,
       pd,
     } = req.body;
-    
+
     const uuid = req.params.uuid;
     if (!uuid) {
       res.status(400).json({
@@ -265,9 +255,9 @@ module.exports = {
       });
       return;
     }
-    
+
     // const password = req.params.password;
-    
+
     // const userFind = await userModel.findOne({
     //   where: { uuid },
     // });
@@ -288,7 +278,7 @@ module.exports = {
     // }
 
     const userObj = {};
-    
+
     if (user_password) {
       const ciphertext = CryptoJS.AES.encrypt(
         user_password,
@@ -305,7 +295,7 @@ module.exports = {
     if (wallet_now_deposit) userObj.wallet_now_deposit = wallet_now_deposit;
     if (wallet_now_coin) userObj.wallet_now_coin = wallet_now_coin;
     if (pd) userObj.pd = pd;
-    
+
     const updated = await userModel.update(userObj, {
       where: { uuid },
     });
@@ -315,10 +305,10 @@ module.exports = {
       });
       return;
     }
-    const user = await userModel.findOne({ 
-      include: [`arts`,`bids`,`likes`,`paddles`,`puzzles`],
+    const user = await userModel.findOne({
+      include: [`arts`, `bids`, `likes`, `paddles`, `puzzles`],
       order: [
-        [ `bids`, `id`, `DESC`],
+        [`bids`, `id`, `DESC`],
         [`puzzles`, `updatedAt`, `DESC`],
         [`paddles`, `updatedAt`, `DESC`],
         [`likes`, `updatedAt`, `DESC`],
