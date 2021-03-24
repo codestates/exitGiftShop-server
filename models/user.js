@@ -55,12 +55,12 @@ class user extends Sequelize.Model {
       comment: "회원 닉네임"
     },
     wallet_now_deposit: {
-      type: DataTypes.DECIMAL(10,0),
+      type: DataTypes.DECIMAL(60,5),
       allowNull: false,
       comment: "지갑 현재 잔고"
     },
     wallet_now_coin: {
-      type: DataTypes.DECIMAL(10,0),
+      type: DataTypes.DECIMAL(60,5),
       allowNull: false,
       comment: "지갑 현재 코인"
     }
