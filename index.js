@@ -7,13 +7,6 @@ const https = require("https");
 const cookieParser = require("cookie-parser");
 const port = 4000;
 
-// cryto test
-const CryptoJS = require("crypto-js");
-const ciphertext = CryptoJS.AES.encrypt("1", process.env.SALT).toString();
-const bytes = CryptoJS.AES.decrypt(ciphertext, process.env.SALT);
-var originalText = bytes.toString(CryptoJS.enc.Utf8);
-console.log(originalText);
-
 // views
 app.set("view engine", "ejs");
 
