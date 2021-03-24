@@ -39,7 +39,7 @@ class puzzle extends Sequelize.Model {
       }
     },
     puzzle_price: {
-      type: DataTypes.DECIMAL(10,0),
+      type: DataTypes.DECIMAL(60,5),
       allowNull: false,
       comment: "퍼즐 가격"
     }

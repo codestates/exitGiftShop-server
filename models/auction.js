@@ -36,12 +36,12 @@ class auction extends Sequelize.Model {
       comment: "경매 종료 시간"
     },
     auction_hammer_price: {
-      type: DataTypes.DECIMAL(10,0),
+      type: DataTypes.DECIMAL(60,5),
       allowNull: true,
       comment: "경매 낙찰 가격"
     },
     auction_now_price: {
-      type: DataTypes.DECIMAL(10,0),
+      type: DataTypes.DECIMAL(60,5),
       allowNull: false,
       comment: "경매 현재 가격"
     },
