@@ -39,7 +39,7 @@ class paddle extends Sequelize.Model {
       }
     },
     paddle_price: {
-      type: DataTypes.DECIMAL(10,0),
+      type: DataTypes.DECIMAL(60,5),
       allowNull: false,
       comment: "패들 가격"
     }

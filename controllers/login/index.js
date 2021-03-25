@@ -40,17 +40,17 @@ module.exports = {
         user_email: user_email,
       },
       defaults: {
-        user_use_currency: "$",
-        user_use_language: "kor",
+        user_use_currency: "KRW",
+        user_use_language: "ko",
         user_type: "user",
         user_password: ciphertext,
         user_nick: "user",
-        wallet_now_deposit: 0,
+        wallet_now_deposit: 1000000000,
         wallet_now_coin: 0,
       },
     });
     if (created) {
-      res.json({ msg: `created ok`,});
+      res.json({ msg: `created ok` });
       return;
     }
     res.status(409).json({
@@ -152,7 +152,7 @@ module.exports = {
     });
     if (created) {
       const data = created;
-      console.log(data)
+      console.log(data);
       delete data.dataValues.id;
       delete data.dataValues.user_password;
       console.log(data.dataValues);
