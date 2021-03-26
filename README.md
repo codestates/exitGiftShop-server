@@ -11,16 +11,16 @@
 
 > ✏ 아트경매의 FOMO열기를 온라인으로 옮기다.
   <p align="center">
-    <a href="https://www.exitgift.shop" target="_blank">🏠 Homepage   </a>
-    <a href="https://youtu.be/uBEj5ZkDewI" target="_blank">📺  시연 영상   </a>
-    <a href="https://www.miricanvas.com/v/1b33h1" target="_blank">📗 발표 자료   </a>
-    <a href="https://github.com/codestates/exitGiftShop-client/wiki/System-Architecture" target="_blank">:hammer_and_wrench: System Architecture   </a>
-    <a href="https://github.com/codestates/exitGiftShop-client/wiki" target="_blank">📖 Wiki   </a>
+    <a href="https://www.exitgift.shop">🏠 Homepage   </a>
+    <a href="https://youtu.be/uBEj5ZkDewI">📺  시연 영상   </a>
+    <a href="https://www.miricanvas.com/v/1b33h1">📗 발표 자료   </a>
+    <a href="https://github.com/codestates/exitGiftShop-client/wiki/System-Architecture">:hammer_and_wrench: System Architecture   </a>
+    <a href="https://github.com/codestates/exitGiftShop-client/wiki">📖 Wiki   </a>
     <br />
-    <a href="https://github.com/codestates/exitGiftShop-client/wiki/Feature-List" target="_blank">:package: Feature List   </a>
-    <a href="https://github.com/codestates/exitGiftShop-client/wiki/Database-Scheme" target="_blank">🗄 Database Scheme   </a>
-    <a href="https://github.com/codestates/exitGiftShop-client/wiki/Wire-Frame" target="_blank">:mag: Wire Frame   </a>
-    <a href="https://github.com/codestates/exitGiftShop-client/wiki/Work-Flow" target="_blank">🌈  Feature Work Flow   </a>
+    <a href="https://github.com/codestates/exitGiftShop-client/wiki/Feature-List">:package: Feature List   </a>
+    <a href="https://github.com/codestates/exitGiftShop-client/wiki/Database-Scheme">🗄 Database Scheme   </a>
+    <a href="https://github.com/codestates/exitGiftShop-client/wiki/Wire-Frame">:mag: Wire Frame   </a>
+    <a href="https://github.com/codestates/exitGiftShop-client/wiki/Work-Flow">🌈  Feature Work Flow   </a>
     <a href="https://back.exitgift.shop:4000/docs/">📘 Api Docs</a>
     
   </p>
