@@ -10,22 +10,18 @@
 
 
 > ✏ 아트경매의 FOMO열기를 온라인으로 옮기다.
-
-### [🏠 Homepage](https://www.exitgift.shop)
-
-### [📖 Wiki](https://github.com/codestates/exitGiftShop-client/wiki)
-
-### [:mag: Wire Frame](https://github.com/codestates/exitGiftShop-client/wiki/Wire-Frame)
-
-### [🌈  Feature Work Flow](https://github.com/codestates/exitGiftShop-client/wiki/Work-Flow)
-
-### [:package: Feature List](https://github.com/codestates/exitGiftShop-client/wiki/Feature-List)
-
-### [:hammer_and_wrench: System Architecture](https://github.com/codestates/exitGiftShop-client/wiki/System-Architecture)
-
-### [🗄 Database Scheme](https://github.com/codestates/exitGiftShop-client/wiki/Database-Scheme)
-
-### [📘 Api Docs](https://back.exitgift.shop:4000/docs/)
+  <p align="center">
+    <a href="https://www.exitgift.shop">🏠 Homepage   </a>
+    <a href="https://github.com/codestates/exitGiftShop-client/wiki">📖 Wiki   </a>
+    <a href="https://github.com/codestates/exitGiftShop-client/wiki/Wire-Frame">:mag: Wire Frame   </a>
+    <a href="https://github.com/codestates/exitGiftShop-client/wiki/Work-Flow">🌈  Feature Work Flow</a>
+    <br />
+    <a href="https://github.com/codestates/exitGiftShop-client/wiki/Feature-List">:package: Feature List   </a>
+    <a href="https://github.com/codestates/exitGiftShop-client/wiki/System-Architecture">:hammer_and_wrench: System Architecture   </a>
+    <a href="https://github.com/codestates/exitGiftShop-client/wiki/Database-Scheme">🗄 Database Scheme   </a>
+    <a href="https://back.exitgift.shop:4000/docs/">📘 Api Docs</a>
+    
+  </p>
 
 ## 프로젝트 소개
 
@@ -33,6 +29,7 @@
 
 클럽하우스, NFT(Non-Fungible Token), 게임스탑 사태 등...
 우리는 현재 FOMO(Fear-Of-Missing-Out) 시대속에서 살고 있습니다.
+
 경매기록은 온체인 데이터로 기록되어 front-running이 불가능하며,
 중개 엔티티의 부재로, 작품을 정성들여 작업하신 작가님껜 최저 커미션으로 보답합니다.
 
@@ -42,6 +39,6 @@
 | ---------------- | ----------- | ------------ | --------------- | -------------- |
 | `React`          | `Express`   | `S3`         | `GitHub_Project`| `Gabia`        |
 | `React-Hooks`    | `mariaDB`   | `EC2`        | `GitHub_Wiki`   | `OAuth`        |
-| `Redux`.         | `Dbeaver`   | `RDS`        | `Slack`         | `Lets Encrypt` |
+| `Redux`          | `Dbeaver`   | `RDS`        | `Slack`         | `Lets Encrypt` |
 |                  | `Sequelize` | `Route53`    |                 |                |
 |                  | `Swagger`   | `ACM`        |                 |                |
