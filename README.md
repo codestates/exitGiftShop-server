@@ -11,17 +11,17 @@
 
 > ✏ 아트경매의 FOMO열기를 온라인으로 옮기다.
   <p align="center">
-    <a target="blank" href="https://www.exitgift.shop">🏠 Homepage   </a>
-    <a target="blank" href="https://youtu.be/uBEj5ZkDewI">📺  시연 영상   </a>
-    <a target="blank" href="https://www.miricanvas.com/v/1b33h1">📗 발표 자료   </a>
-    <a target="blank" href="https://github.com/codestates/exitGiftShop-client/wiki/System-Architecture">:hammer_and_wrench: System Architecture   </a>
-    <a target="blank" href="https://github.com/codestates/exitGiftShop-client/wiki">📖 Wiki   </a>
+    <a target="_blank" href="https://www.exitgift.shop">🏠 Homepage   </a>
+    <a target="_blank" href="https://youtu.be/uBEj5ZkDewI">📺  시연 영상   </a>
+    <a target="_blank" href="https://www.miricanvas.com/v/1b33h1">📗 발표 자료   </a>
+    <a target="_blank" href="https://github.com/codestates/exitGiftShop-client/wiki/System-Architecture">:hammer_and_wrench: System Architecture   </a>
+    <a target="_blank" href="https://github.com/codestates/exitGiftShop-client/wiki">📖 Wiki   </a>
     <br />
-    <a target="blank" href="https://github.com/codestates/exitGiftShop-client/wiki/Feature-List">:package: Feature List   </a>
-    <a target="blank" href="https://github.com/codestates/exitGiftShop-client/wiki/Database-Scheme">🗄 Database Scheme   </a>
-    <a target="blank" href="https://github.com/codestates/exitGiftShop-client/wiki/Wire-Frame">:mag: Wire Frame   </a>
-    <a target="blank" href="https://github.com/codestates/exitGiftShop-client/wiki/Work-Flow">🌈  Feature Work Flow   </a>
-    <a target="blank" href="https://back.exitgift.shop:4000/docs/">📘 Api Docs</a>
+    <a target="_blank" href="https://github.com/codestates/exitGiftShop-client/wiki/Feature-List">:package: Feature List   </a>
+    <a target="_blank" href="https://github.com/codestates/exitGiftShop-client/wiki/Database-Scheme">🗄 Database Scheme   </a>
+    <a target="_blank" href="https://github.com/codestates/exitGiftShop-client/wiki/Wire-Frame">:mag: Wire Frame   </a>
+    <a target="_blank" href="https://github.com/codestates/exitGiftShop-client/wiki/Work-Flow">🌈  Feature Work Flow   </a>
+    <a target="_blank" href="https://back.exitgift.shop:4000/docs/">📘 Api Docs</a>
     
   </p>
 
