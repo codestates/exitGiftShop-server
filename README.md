@@ -11,9 +11,9 @@
 
 > ✏ 아트경매의 FOMO열기를 온라인으로 옮기다.
   <p align="center">
-    <a href="https://www.exitgift.shop" onclick="return ! window.open(this.href);">🏠 Homepage   </a>
+    <a href="https://www.exitgift.shop" target="_blank">🏠 Homepage   </a>
     <a href="https://youtu.be/uBEj5ZkDewI" target="_blank">📺  시연 영상   </a>
-    <a href="https://www.miricanvas.com/v/1b33h1" onclick="return ! window.open(this.href);">📗 발표 자료   </a>
+    <a href="https://www.miricanvas.com/v/1b33h1" target="_blank">📗 발표 자료   </a>
     <a href="https://github.com/codestates/exitGiftShop-client/wiki/System-Architecture" target="_blank">:hammer_and_wrench: System Architecture   </a>
     <a href="https://github.com/codestates/exitGiftShop-client/wiki" target="_blank">📖 Wiki   </a>
     <br />
